@@ -1,0 +1,212 @@
+{
+  "Metadata": {
+    "title": "arclo - Custom software for your business",
+    "description": "Custom SaaS, web & mobile apps, AI agents, and automations. From idea to production, tailored to your needs."
+  },
+  "Separator": {
+    "text": "SOFTWARE · DESIGN · INNOVATION · TECHNOLOGY · CODE · "
+  },
+  "Navbar": {
+    "services": "Services",
+    "about": "About",
+    "faq": "FAQ",
+    "contact": "Contact"
+  },
+  "Hero": {
+    "badgeLabel": "New",
+    "badgeText": "AI agents & automations",
+    "badgeTextShort": "AI & automations",
+    "title": "We build software that drives your business forward",
+    "description": "Custom SaaS, web & mobile apps, AI agents, and automations. From idea to production, tailored to your needs.",
+    "cta": "Get Started",
+    "ourWork": "Our Work",
+    "projectsCount": "+3",
+    "projectsLabel": "Years of experience in software development.",
+    "imageAlt": "Engineer working on design system",
+    "contact": "Contact"
+  },
+  "Footer": {
+    "headline": "Your vision, our code.\nBuilt to scale.",
+    "newsletterTitle": "Stay updated on what we're building.",
+    "emailPlaceholder": "Enter your email address",
+    "subscribeLabel": "Subscribe",
+    "subscribing": "Subscribing...",
+    "subscribeSuccess": "You have been subscribed successfully.",
+    "subscribeError": "Could not subscribe. Please try again.",
+    "disclaimer": "*By completing this form you are signing up to receive our emails and can unsubscribe at any time.",
+    "servicesTitle": "Services",
+    "services": {
+      "customDev": "Custom Development",
+      "saas": "SaaS Products",
+      "ai": "AI & Agents",
+      "automations": "Automations"
+    },
+    "solutionsTitle": "Solutions",
+    "solutions": {
+      "webApps": "Web Apps",
+      "mobileApps": "Mobile Apps",
+      "consulting": "Consulting",
+      "mvp": "MVP Development"
+    },
+    "companyTitle": "Contacts",
+    "company": {
+      "about": "About Us",
+      "work": "Our Work",
+      "blog": "Blog"
+    },
+    "resourcesTitle": "Resources",
+    "resources": {
+      "contact": "Contact",
+      "terms": "Terms of Service",
+      "privacy": "Privacy Policy"
+    },
+    "copyright": "2025 arclo",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service"
+  },
+  "Services": {
+    "title": "What we do",
+    "subtitle": "End-to-end software services to take your business to the next level",
+    "customDev": "Custom Dev",
+    "customDevDesc": "Unique solutions tailored to your business processes and specific needs.",
+    "saas": "SaaS",
+    "saasDesc": "Scalable software-as-a-service products, from idea to market.",
+    "ai": "AI & Agents",
+    "aiDesc": "Intelligent agents and AI models integrated into your workflows.",
+    "automations": "Automation",
+    "automationsDesc": "Automate repetitive processes to reduce costs and errors.",
+    "webApps": "Web Apps",
+    "webAppsDesc": "Modern, fast, and responsive web applications with cutting-edge tech.",
+    "mobileApps": "Mobile",
+    "mobileAppsDesc": "Native and cross-platform apps for iOS and Android."
+  },
+  "Projects": {
+    "title": "Our work",
+    "subtitle": "Projects that speak for themselves",
+    "visitProject": "Visit project",
+    "project1": {
+      "name": "MiloPay",
+      "tag": "Personal Finance · SaaS",
+      "description": "Personal finance platform for managing income, expenses, subscriptions and financial reports with real-time dashboards."
+    },
+    "project2": {
+      "name": "Transportes Acaya",
+      "tag": "Logistics · Digital Platform",
+      "description": "Digital platform that replaced a spreadsheet-based system. Trip lifecycle engine with 4 states, route tracking, automatic rate calculation, role-based dashboards and real-time notifications."
+    },
+    "project3": {
+      "name": "Kódi",
+      "tag": "In Development",
+      "description": "Platform under active development. More details coming soon."
+    }
+  },
+  "Team": {
+    "title": "Our team",
+    "subtitle": "The people behind the code",
+    "member1Name": "Emilio Rodríguez B.",
+    "member1Role": "CEO & Founder",
+    "member1Desc": "Lead software engineer with a product mindset. Drives technical architecture and the dev team, ensuring high-quality delivery from start to finish.",
+    "member2Name": "Luis Ugalde C.",
+    "member2Role": "Co-Founder & CFO",
+    "member2Desc": "Financial strategist who connects technical vision with business results. Expert in scaling and operations.",
+    "member3Name": "Juan Díaz A.",
+    "member3Role": "Project Management",
+    "member3Desc": "Project manager who keeps every delivery on time and on track. Specialist in agile methodologies and client communication.",
+    "member4Name": "Edgar Alvarado Z.",
+    "member4Role": "Software Engineering",
+    "member4Desc": "Full-stack engineer experienced across multiple technologies and frameworks. Focused on writing clean, production-ready code."
+  },
+  "Faq": {
+    "title": "Questions & answers",
+    "subtitle": "Everything you need to know about working with us",
+    "faq1": {
+      "question": "What is the typical project timeline?",
+      "answer": "Most projects take 4-12 weeks from kickoff to launch, depending on scope. We work in 2-week sprints with continuous delivery, so you'll see progress from day one."
+    },
+    "faq2": {
+      "question": "What technologies do you specialize in?",
+      "answer": "We specialize in React, Next.js, TypeScript, React Native, Node.js and cloud platforms (AWS, Vercel). We pick the best tool for each project rather than forcing a one-size-fits-all approach."
+    },
+    "faq3": {
+      "question": "How does your pricing work?",
+      "answer": "We offer per-project pricing with clear milestones. After an initial discovery call, we provide a detailed proposal with scope, timeline and investment. No hidden costs."
+    },
+    "faq4": {
+      "question": "Do you offer post-launch support?",
+      "answer": "Absolutely. We offer maintenance plans that include bug fixes, performance monitoring, security updates and feature enhancements. Your product keeps evolving after launch."
+    },
+    "faq5": {
+      "question": "Can you work with our existing team?",
+      "answer": "Yes. We frequently integrate with client teams as staff augmentation or take ownership of specific modules. We adapt to your workflows, tools and processes."
+    }
+  },
+  "Contact": {
+    "title": "Contact us",
+    "subtitleLine1": "Ready to create",
+    "subtitleLine2": "something amazing?",
+    "address": "San José, Costa Rica",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "Email",
+    "company": "Company",
+    "message": "Type your message...",
+    "privacyPrefix": "I have read and understood the",
+    "privacyLink": "privacy statement",
+    "submit": "Submit",
+    "sending": "Sending...",
+    "success": "Message sent successfully. We'll get back to you soon.",
+    "errorMissing": "Please fill in all required fields.",
+    "errorSend": "Could not send the message. Please try again.",
+    "errorPrivacy": "You must accept the privacy policy."
+  },
+  "Terms": {
+    "title": "Terms of Service",
+    "lastUpdated": "Last updated: February 20, 2026",
+    "intro": "These Terms of Service govern the relationship between you (\"Client\") and Arclo Systems (\"arclo\", \"we\"), based in San José, Costa Rica. By engaging our services, you agree to these terms in full.",
+    "section1Title": "1. Services",
+    "section1Content": "arclo provides custom software development services, including but not limited to: web and mobile applications, SaaS products, artificial intelligence agents, and automations. The specific scope of each project will be detailed in an individual proposal or contract.",
+    "section2Title": "2. Proposals and Acceptance",
+    "section2Content": "Each project begins with a proposal outlining the scope, timeline, and investment. The proposal is considered accepted once the Client confirms in writing (including email) and makes the agreed initial payment.",
+    "section3Title": "3. Intellectual Property",
+    "section3Content": "Upon full payment for the project, the Client will receive complete ownership of the source code and deliverables developed specifically for their project. arclo retains the right to use internally developed tools, libraries, and generic components in other projects.",
+    "section4Title": "4. Payments",
+    "section4Content": "Payments shall be made according to the milestones defined in the project proposal. Payments overdue by more than 15 days may result in suspension of work until the situation is resolved. All prices are expressed in the currency specified in the proposal.",
+    "section5Title": "5. Confidentiality",
+    "section5Content": "Both parties agree to keep all sensitive information shared during the project confidential. This obligation survives termination of the contract for a period of 2 years.",
+    "section6Title": "6. Warranty and Support",
+    "section6Content": "arclo offers a 30-day warranty period after final delivery, during which software bugs will be fixed at no additional cost. Support beyond this period is governed by a separate maintenance agreement.",
+    "section7Title": "7. Limitation of Liability",
+    "section7Content": "arclo's total liability under any circumstances shall not exceed the total amount paid by the Client for the project in question. arclo shall not be liable for indirect, incidental, or consequential damages.",
+    "section8Title": "8. Termination",
+    "section8Content": "Either party may terminate the contract with 15 days' written notice. In the event of termination, the Client shall pay for all work completed up to the termination date.",
+    "section9Title": "9. Governing Law",
+    "section9Content": "These terms are governed by the laws of the Republic of Costa Rica. Any disputes shall be resolved before the competent courts of San José, Costa Rica.",
+    "section10Title": "10. Contact",
+    "section10Content": "For inquiries about these terms, contact us at info@arclosystems.com."
+  },
+  "Privacy": {
+    "title": "Privacy Policy",
+    "lastUpdated": "Last updated: February 20, 2026",
+    "intro": "At Arclo Systems (\"arclo\", \"we\"), we respect your privacy and are committed to protecting your personal data. This policy describes what data we collect, how we use it, and what your rights are.",
+    "section1Title": "1. Data We Collect",
+    "section1Content": "We collect personal data that you provide directly through our contact form (first name, last name, email, company, and message) and our newsletter subscription (email address).",
+    "section2Title": "2. Use of Data",
+    "section2Content": "We use your data to: respond to your inquiries and project requests, send marketing communications if you subscribed to the newsletter, and improve our services and website.",
+    "section3Title": "3. Email Marketing Provider",
+    "section3Content": "We use Brevo (formerly Sendinblue) as our email marketing platform to manage our newsletter. When you subscribe, your email address is stored on Brevo's servers, which are GDPR compliant. You can review Brevo's privacy policy on their official website.",
+    "section4Title": "4. Cookies",
+    "section4Content": "Our website uses essential technical cookies required for its operation. We do not use third-party tracking cookies or personalized advertising.",
+    "section5Title": "5. Data Retention",
+    "section5Content": "We retain contact form data for as long as necessary to respond to your inquiry and, where applicable, for the duration of the business relationship. Newsletter data is retained until you unsubscribe.",
+    "section6Title": "6. Your Rights",
+    "section6Content": "You have the right to access, rectify, delete, and port your personal data. You may also object to processing or request its limitation. To exercise these rights, contact us at info@arclosystems.com.",
+    "section7Title": "7. Security",
+    "section7Content": "We implement appropriate technical and organizational measures to protect your personal data against unauthorized access, alteration, disclosure, or destruction.",
+    "section8Title": "8. International Transfers",
+    "section8Content": "Your data may be processed on servers located outside Costa Rica through our service providers (Brevo, Vercel). These providers comply with international data protection standards.",
+    "section9Title": "9. Changes to this Policy",
+    "section9Content": "We reserve the right to update this policy. Any changes will be posted on this page with the corresponding update date.",
+    "section10Title": "10. Contact",
+    "section10Content": "For privacy inquiries, contact us at info@arclosystems.com."
+  }
+}

@@ -1,0 +1,212 @@
+{
+  "Metadata": {
+    "title": "arclo - Software a medida para tu negocio",
+    "description": "SaaS, apps web y móviles, agentes IA y automatizaciones. De la idea a producción, a tu medida."
+  },
+  "Separator": {
+    "text": "SOFTWARE · DISEÑO · INNOVACIÓN · TECNOLOGÍA · CÓDIGO · "
+  },
+  "Navbar": {
+    "services": "Servicios",
+    "about": "Nosotros",
+    "faq": "FAQ",
+    "contact": "Contacto"
+  },
+  "Hero": {
+    "badgeLabel": "Nuevo",
+    "badgeText": "Agentes IA y automatizaciones",
+    "badgeTextShort": "IA y automatizaciones",
+    "title": "Construimos software que impulsa tu negocio",
+    "description": "SaaS a medida, apps web y móviles, agentes IA y automatizaciones. De la idea a producción, adaptado a tus necesidades.",
+    "cta": "Empezar",
+    "ourWork": "Nuestro Trabajo",
+    "projectsCount": "+3",
+    "projectsLabel": "Años de experiencia en desarrollo de software.",
+    "imageAlt": "Ingeniero trabajando en sistema de diseño",
+    "contact": "Contacto"
+  },
+  "Footer": {
+    "headline": "Tu visión, nuestro código.\nHecho para escalar.",
+    "newsletterTitle": "Mantente al día con lo que estamos construyendo.",
+    "emailPlaceholder": "Ingresa tu correo electrónico",
+    "subscribeLabel": "Suscribirse",
+    "subscribing": "Suscribiendo...",
+    "subscribeSuccess": "Te has suscrito correctamente.",
+    "subscribeError": "No se pudo suscribir. Intenta de nuevo.",
+    "disclaimer": "*Al completar este formulario aceptas recibir nuestros correos. Puedes cancelar en cualquier momento.",
+    "servicesTitle": "Servicios",
+    "services": {
+      "customDev": "Desarrollo a Medida",
+      "saas": "Productos SaaS",
+      "ai": "IA y Agentes",
+      "automations": "Automatizaciones"
+    },
+    "solutionsTitle": "Soluciones",
+    "solutions": {
+      "webApps": "Apps Web",
+      "mobileApps": "Apps Móviles",
+      "consulting": "Consultoría",
+      "mvp": "Desarrollo MVP"
+    },
+    "companyTitle": "Contactos",
+    "company": {
+      "about": "Sobre Nosotros",
+      "work": "Nuestro Trabajo",
+      "blog": "Blog"
+    },
+    "resourcesTitle": "Recursos",
+    "resources": {
+      "contact": "Contacto",
+      "terms": "Términos de Servicio",
+      "privacy": "Política de Privacidad"
+    },
+    "copyright": "2025 arclo",
+    "privacyPolicy": "Política de Privacidad",
+    "termsOfService": "Términos de Servicio"
+  },
+  "Services": {
+    "title": "Lo que hacemos",
+    "subtitle": "Servicios integrales de software para llevar tu negocio al siguiente nivel",
+    "customDev": "Dev a Medida",
+    "customDevDesc": "Soluciones únicas adaptadas a los procesos y necesidades específicas de tu negocio.",
+    "saas": "SaaS",
+    "saasDesc": "Productos de software como servicio escalables, desde la idea hasta el mercado.",
+    "ai": "IA y Agentes",
+    "aiDesc": "Agentes inteligentes y modelos de IA integrados en tus flujos de trabajo.",
+    "automations": "Automación",
+    "automationsDesc": "Automatización de procesos repetitivos para reducir costos y errores.",
+    "webApps": "Apps Web",
+    "webAppsDesc": "Aplicaciones web modernas, rápidas y responsivas con las mejores tecnologías.",
+    "mobileApps": "Apps Móvil",
+    "mobileAppsDesc": "Apps nativas y multiplataforma para iOS y Android."
+  },
+  "Projects": {
+    "title": "Nuestro trabajo",
+    "subtitle": "Proyectos que hablan por sí solos",
+    "visitProject": "Visitar proyecto",
+    "project1": {
+      "name": "MiloPay",
+      "tag": "Finanzas Personales · SaaS",
+      "description": "Plataforma de finanzas personales para gestionar ingresos, gastos, suscripciones y reportes financieros con dashboards en tiempo real."
+    },
+    "project2": {
+      "name": "Transportes Acaya",
+      "tag": "Logística · Plataforma Digital",
+      "description": "Plataforma digital que reemplazó un sistema basado en hojas de cálculo. Motor de viajes con 4 estados, tracking de rutas, cálculo automático de tarifas, dashboards por rol y notificaciones en tiempo real."
+    },
+    "project3": {
+      "name": "Kódi",
+      "tag": "En Desarrollo",
+      "description": "Plataforma en desarrollo activo. Más detalles próximamente."
+    }
+  },
+  "Team": {
+    "title": "Nuestro equipo",
+    "subtitle": "Las personas detrás del código",
+    "member1Name": "Emilio Rodríguez B.",
+    "member1Role": "CEO & Founder",
+    "member1Desc": "Ingeniero de software líder con visión de producto. Dirige la arquitectura técnica y el equipo de desarrollo, asegurando entregas de alta calidad de principio a fin.",
+    "member2Name": "Luis Ugalde C.",
+    "member2Role": "Co-Founder & CFO",
+    "member2Desc": "Estratega financiero que conecta la visión técnica con resultados de negocio. Experto en escalamiento y operaciones.",
+    "member3Name": "Juan Díaz A.",
+    "member3Role": "Project Management",
+    "member3Desc": "Gestor de proyectos que mantiene cada entrega en tiempo y forma. Especialista en metodologías ágiles y comunicación con clientes.",
+    "member4Name": "Edgar Alvarado Z.",
+    "member4Role": "Software Engineering",
+    "member4Desc": "Ingeniero full-stack con experiencia en múltiples tecnologías y frameworks. Enfocado en escribir código limpio y optimizado para producción."
+  },
+  "Faq": {
+    "title": "Preguntas & respuestas",
+    "subtitle": "Todo lo que necesitas saber sobre trabajar con nosotros",
+    "faq1": {
+      "question": "¿Cuál es el tiempo típico de un proyecto?",
+      "answer": "La mayoría de proyectos toman 4-12 semanas desde el inicio hasta el lanzamiento, dependiendo del alcance. Trabajamos en sprints de 2 semanas con entrega continua, así verás progreso desde el primer día."
+    },
+    "faq2": {
+      "question": "¿En qué tecnologías se especializan?",
+      "answer": "Nos especializamos en React, Next.js, TypeScript, React Native, Node.js y plataformas cloud (AWS, Vercel). Elegimos la mejor herramienta para cada proyecto en lugar de forzar un enfoque único."
+    },
+    "faq3": {
+      "question": "¿Cómo funcionan sus precios?",
+      "answer": "Ofrecemos precios por proyecto con hitos claros. Después de una llamada de descubrimiento inicial, proporcionamos una propuesta detallada con alcance, cronograma e inversión. Sin costos ocultos."
+    },
+    "faq4": {
+      "question": "¿Ofrecen soporte después del lanzamiento?",
+      "answer": "Absolutamente. Ofrecemos planes de mantenimiento que incluyen corrección de bugs, monitoreo de rendimiento, actualizaciones de seguridad y mejoras de funcionalidad. Tu producto sigue evolucionando después del lanzamiento."
+    },
+    "faq5": {
+      "question": "¿Pueden trabajar con nuestro equipo existente?",
+      "answer": "Sí. Frecuentemente nos integramos con equipos de clientes como staff augmentation o tomamos responsabilidad de módulos específicos. Nos adaptamos a tus flujos de trabajo, herramientas y procesos."
+    }
+  },
+  "Contact": {
+    "title": "Contáctanos",
+    "subtitleLine1": "¿Listo para crear",
+    "subtitleLine2": "algo increíble?",
+    "address": "San José, Costa Rica",
+    "firstName": "Nombre",
+    "lastName": "Apellido",
+    "email": "Correo electrónico",
+    "company": "Empresa",
+    "message": "Escribe tu mensaje...",
+    "privacyPrefix": "He leído y comprendido la",
+    "privacyLink": "política de privacidad",
+    "submit": "Enviar",
+    "sending": "Enviando...",
+    "success": "Mensaje enviado correctamente. Te responderemos pronto.",
+    "errorMissing": "Por favor completa todos los campos requeridos.",
+    "errorSend": "No se pudo enviar el mensaje. Intenta de nuevo.",
+    "errorPrivacy": "Debes aceptar la política de privacidad."
+  },
+  "Terms": {
+    "title": "Términos de Servicio",
+    "lastUpdated": "Última actualización: 20 de febrero de 2026",
+    "intro": "Estos Términos de Servicio regulan la relación entre usted (\"Cliente\") y Arclo Systems (\"arclo\", \"nosotros\"), con domicilio en San José, Costa Rica. Al contratar nuestros servicios, usted acepta estos términos en su totalidad.",
+    "section1Title": "1. Servicios",
+    "section1Content": "arclo ofrece servicios de desarrollo de software a medida, incluyendo pero no limitado a: aplicaciones web y móviles, productos SaaS, agentes de inteligencia artificial y automatizaciones. El alcance específico de cada proyecto se detallará en una propuesta o contrato individual.",
+    "section2Title": "2. Propuestas y Aceptación",
+    "section2Content": "Cada proyecto inicia con una propuesta que describe el alcance, cronograma e inversión. La propuesta se considerará aceptada una vez que el Cliente confirme por escrito (incluyendo correo electrónico) y realice el pago inicial acordado.",
+    "section3Title": "3. Propiedad Intelectual",
+    "section3Content": "Una vez completado el pago total del proyecto, el Cliente recibirá la titularidad completa del código fuente y los entregables desarrollados específicamente para su proyecto. arclo retiene el derecho de utilizar herramientas, bibliotecas y componentes genéricos desarrollados internamente en otros proyectos.",
+    "section4Title": "4. Pagos",
+    "section4Content": "Los pagos se realizarán según los hitos definidos en la propuesta del proyecto. Los pagos atrasados por más de 15 días podrán resultar en la suspensión del trabajo hasta que se regularice la situación. Todos los precios se expresan en la moneda especificada en la propuesta.",
+    "section5Title": "5. Confidencialidad",
+    "section5Content": "Ambas partes se comprometen a mantener en confidencialidad toda información sensible compartida durante el proyecto. Esta obligación sobrevive la terminación del contrato por un período de 2 años.",
+    "section6Title": "6. Garantía y Soporte",
+    "section6Content": "arclo ofrece un período de garantía de 30 días tras la entrega final, durante el cual se corregirán errores de software sin costo adicional. El soporte posterior a este período se rige por un acuerdo de mantenimiento separado.",
+    "section7Title": "7. Limitación de Responsabilidad",
+    "section7Content": "La responsabilidad total de arclo bajo cualquier circunstancia no excederá el monto total pagado por el Cliente por el proyecto en cuestión. arclo no será responsable por daños indirectos, incidentales o consecuentes.",
+    "section8Title": "8. Terminación",
+    "section8Content": "Cualquier parte puede terminar el contrato con 15 días de preaviso por escrito. En caso de terminación, el Cliente pagará por todo el trabajo completado hasta la fecha de terminación.",
+    "section9Title": "9. Ley Aplicable",
+    "section9Content": "Estos términos se rigen por las leyes de la República de Costa Rica. Cualquier disputa se resolverá ante los tribunales competentes de San José, Costa Rica.",
+    "section10Title": "10. Contacto",
+    "section10Content": "Para consultas sobre estos términos, contáctenos en info@arclosystems.com."
+  },
+  "Privacy": {
+    "title": "Política de Privacidad",
+    "lastUpdated": "Última actualización: 20 de febrero de 2026",
+    "intro": "En Arclo Systems (\"arclo\", \"nosotros\"), respetamos su privacidad y nos comprometemos a proteger sus datos personales. Esta política describe qué datos recopilamos, cómo los usamos y cuáles son sus derechos.",
+    "section1Title": "1. Datos que Recopilamos",
+    "section1Content": "Recopilamos datos personales que usted nos proporciona directamente a través de nuestro formulario de contacto (nombre, apellido, correo electrónico, empresa y mensaje) y nuestra suscripción al newsletter (correo electrónico).",
+    "section2Title": "2. Uso de los Datos",
+    "section2Content": "Utilizamos sus datos para: responder a sus consultas y solicitudes de proyecto, enviar comunicaciones de marketing si se suscribió al newsletter, y mejorar nuestros servicios y sitio web.",
+    "section3Title": "3. Proveedor de Email Marketing",
+    "section3Content": "Utilizamos Brevo (anteriormente Sendinblue) como plataforma de email marketing para gestionar nuestro newsletter. Al suscribirse, su correo electrónico se almacena en los servidores de Brevo, que cumple con el RGPD. Puede consultar la política de privacidad de Brevo en su sitio web oficial.",
+    "section4Title": "4. Cookies",
+    "section4Content": "Nuestro sitio web utiliza cookies técnicas esenciales para su funcionamiento. No utilizamos cookies de seguimiento de terceros ni publicidad personalizada.",
+    "section5Title": "5. Retención de Datos",
+    "section5Content": "Conservamos los datos del formulario de contacto durante el tiempo necesario para responder a su consulta y, en su caso, durante la relación comercial. Los datos del newsletter se conservan hasta que cancele su suscripción.",
+    "section6Title": "6. Sus Derechos",
+    "section6Content": "Usted tiene derecho a acceder, rectificar, eliminar y portar sus datos personales. También puede oponerse al tratamiento o solicitar su limitación. Para ejercer estos derechos, contáctenos en info@arclosystems.com.",
+    "section7Title": "7. Seguridad",
+    "section7Content": "Implementamos medidas técnicas y organizativas adecuadas para proteger sus datos personales contra acceso no autorizado, alteración, divulgación o destrucción.",
+    "section8Title": "8. Transferencias Internacionales",
+    "section8Content": "Sus datos pueden ser procesados en servidores ubicados fuera de Costa Rica a través de nuestros proveedores de servicios (Brevo, Vercel). Estos proveedores cumplen con estándares internacionales de protección de datos.",
+    "section9Title": "9. Cambios a esta Política",
+    "section9Content": "Nos reservamos el derecho de actualizar esta política. Cualquier cambio se publicará en esta página con la fecha de actualización correspondiente.",
+    "section10Title": "10. Contacto",
+    "section10Content": "Para consultas sobre privacidad, contáctenos en info@arclosystems.com."
+  }
+}
