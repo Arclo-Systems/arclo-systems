@@ -33,7 +33,7 @@ export default async function Home() {
     name: "arclo",
     legalName: "Arclo Systems",
     url: BASE_URL,
-    logo: `${BASE_URL}/og-image.jpg`,
+    logo: `${BASE_URL}/open-graph.png`,
     description: tMeta("description"),
     address: {
       "@type": "PostalAddress",
