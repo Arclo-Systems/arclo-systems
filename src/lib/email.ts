@@ -24,24 +24,28 @@ export async function sendBrevoEmail(
   const senderEmail = process.env.BREVO_SENDER_EMAIL;
   if (!apiKey || !senderEmail) return { ok: false };
 
-  const res = await fetch("https://api.brevo.com/v3/smtp/email", {
-    method: "POST",
-    headers: {
-      accept: "application/json",
-      "content-type": "application/json",
-      "api-key": apiKey,
-    },
-    body: JSON.stringify({
-      sender: { name: "Kódi", email: senderEmail },
-      to: [input.to],
-      ...(input.replyTo ? { replyTo: input.replyTo } : {}),
-      subject: input.subject,
-      htmlContent: input.htmlContent,
-      ...(input.attachments && input.attachments.length
-        ? { attachment: input.attachments }
-        : {}),
-    }),
-  });
-
-  return { ok: res.ok };
+  try {
+    const res = await fetch("https://api.brevo.com/v3/smtp/email", {
+      method: "POST",
+      headers: {
+        accept: "application/json",
+        "content-type": "application/json",
+        "api-key": apiKey,
+      },
+      body: JSON.stringify({
+        sender: { name: "Kódi", email: senderEmail },
+        to: [input.to],
+        ...(input.replyTo ? { replyTo: input.replyTo } : {}),
+        subject: input.subject,
+        htmlContent: input.htmlContent,
+        ...(input.attachments && input.attachments.length
+          ? { attachment: input.attachments }
+          : {}),
+      }),
+      signal: AbortSignal.timeout(10_000),
+    });
+    return { ok: res.ok };
+  } catch {
+    return { ok: false };
+  }
 }

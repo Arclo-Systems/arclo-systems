@@ -80,6 +80,14 @@ describe("partnerSchema", () => {
     const v = { ...base, coupon: { ...base.coupon, deadline: isoInDays(120) } };
     expect(partnerSchema.safeParse(v).success).toBe(false);
   });
+  it("acepta fecha límite exactamente en 15 días", () => {
+    const v = { ...base, coupon: { ...base.coupon, deadline: isoInDays(15) } };
+    expect(partnerSchema.safeParse(v).success).toBe(true);
+  });
+  it("acepta fecha límite exactamente en 90 días", () => {
+    const v = { ...base, coupon: { ...base.coupon, deadline: isoInDays(90) } };
+    expect(partnerSchema.safeParse(v).success).toBe(true);
+  });
   it("rechaza cantidad de cupones fuera de 5-500", () => {
     const v = { ...base, coupon: { ...base.coupon, quantity: 4 } };
     expect(partnerSchema.safeParse(v).success).toBe(false);
@@ -120,9 +128,9 @@ describe("partnerSchema", () => {
     const v = { ...base, confirmation: { accepted: false } };
     expect(partnerSchema.safeParse(v).success).toBe(false);
   });
-  it("rechaza si el honeypot viene lleno", () => {
+  it("el schema acepta honeypot lleno (lo filtra el server action, no el schema)", () => {
     const v = { ...base, honeypot: "bot" };
-    expect(partnerSchema.safeParse(v).success).toBe(false);
+    expect(partnerSchema.safeParse(v).success).toBe(true);
   });
   it("rechaza website con formato inválido", () => {
     const v = { ...base, business: { ...base.business, website: "no-es-url" } };

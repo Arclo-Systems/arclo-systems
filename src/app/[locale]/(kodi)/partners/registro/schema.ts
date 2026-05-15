@@ -74,17 +74,17 @@ const couponSchema = z.object({
   deadline: z.string().refine((v) => /^\d{4}-\d{2}-\d{2}$/.test(v), {
     message: "required",
   }),
-  branchesScope: z.array(z.string()).default([]),
+  branchesScope: z.array(z.string().max(LIMITS.branchName)).default([]),
   conditions: z.string().trim().max(LIMITS.couponConditions).optional().default(""),
 });
 
 function deadlineWindow(): { min: Date; max: Date } {
   const min = new Date();
   min.setUTCHours(0, 0, 0, 0);
-  min.setUTCDate(min.getUTCDate() + MIN_DEADLINE_DAYS);
+  min.setUTCDate(min.getUTCDate() + MIN_DEADLINE_DAYS - 1);
   const max = new Date();
   max.setUTCHours(0, 0, 0, 0);
-  max.setUTCDate(max.getUTCDate() + MAX_DEADLINE_DAYS);
+  max.setUTCDate(max.getUTCDate() + MAX_DEADLINE_DAYS + 1);
   return { min, max };
 }
 
@@ -99,7 +99,7 @@ export const partnerSchema = z
         errorMap: () => ({ message: "must_accept" }),
       }),
     }),
-    honeypot: z.string().max(0, { message: "spam" }).default(""),
+    honeypot: z.string().default(""),
   })
   .superRefine((data, ctx) => {
     const multi = data.business.hasMultipleBranches === "yes";
@@ -121,7 +121,7 @@ export const partnerSchema = z
       if (discountValue < LIMITS.percentMin || discountValue > LIMITS.percentMax) {
         ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["coupon", "discountValue"], message: "percent_range" });
       }
-    } else if (discountValue < LIMITS.fixedMin) {
+    } else if (discountValue < LIMITS.fixedMin || !Number.isInteger(discountValue)) {
       ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["coupon", "discountValue"], message: "fixed_min" });
     }
 

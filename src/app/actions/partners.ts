@@ -66,11 +66,15 @@ export async function submitPartnerRegistration(
   const locale = localeRaw === "en" ? "en" : "es";
 
   const attachments: BrevoAttachment[] = [];
-  if (logo instanceof File && logo.size > 0) {
-    attachments.push(await fileToAttachment(logo, "logo"));
-  }
-  if (photo instanceof File && photo.size > 0) {
-    attachments.push(await fileToAttachment(photo, "foto"));
+  try {
+    if (logo instanceof File && logo.size > 0) {
+      attachments.push(await fileToAttachment(logo, "logo"));
+    }
+    if (photo instanceof File && photo.size > 0) {
+      attachments.push(await fileToAttachment(photo, "foto"));
+    }
+  } catch {
+    return { success: false, error: "validation" };
   }
 
   const branchesHtml =
