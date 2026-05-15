@@ -83,8 +83,9 @@ export function BusinessSection() {
         render={({ field }) => (
           <Field label={t("fields.description")} required
             error={err(e?.description?.message)}>
-            {() => (
-              <TextareaCounter value={field.value ?? ""} max={250}
+            {({ id, describedBy }) => (
+              <TextareaCounter id={id} aria-describedby={describedBy}
+                aria-invalid={!!e?.description} value={field.value ?? ""} max={250}
                 onChange={field.onChange} onBlur={field.onBlur} />
             )}
           </Field>

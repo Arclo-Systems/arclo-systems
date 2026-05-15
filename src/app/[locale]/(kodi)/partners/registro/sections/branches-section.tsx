@@ -15,8 +15,11 @@ export function BranchesSection({
   array: UseFieldArrayReturn<PartnerFormValues, "branches">;
 }) {
   const t = useTranslations("Partners");
-  const { register, watch, formState: { errors } } =
-    useFormContext<PartnerFormValues>();
+  const {
+    register,
+    watch,
+    formState: { errors },
+  } = useFormContext<PartnerFormValues>();
   const show = watch("business.hasMultipleBranches") === "yes";
   const err = (k?: string) => (k ? t(`errors.${k}`) : undefined);
 
@@ -37,54 +40,83 @@ export function BranchesSection({
       )}
 
       <AnimatePresence initial={false}>
-        {array.fields.map((f, i) => (
-          <motion.div
-            key={f.id}
-            layout
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.18, ease: [0.23, 1, 0.32, 1] }}
-            className="rounded-xl border border-[var(--kodi-border)] p-4"
-          >
-            <div className="mb-2 flex items-center justify-between">
-              <span className="text-sm font-medium">#{i + 1}</span>
-              {i > 0 && (
-                <button
-                  type="button"
-                  onClick={() => array.remove(i)}
-                  className="text-xs text-[var(--kodi-coral)] transition-transform duration-150 active:scale-[0.97]"
+        {array.fields.map((f, i) => {
+          const be = errors.branches?.[i];
+          return (
+            <motion.div
+              key={f.id}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{
+                opacity: 0,
+                y: -8,
+                transition: { duration: 0.12, ease: [0.23, 1, 0.32, 1] },
+              }}
+              transition={{ duration: 0.2, delay: i * 0.05, ease: [0.23, 1, 0.32, 1] }}
+              className="rounded-xl border border-[var(--kodi-border)] p-4"
+            >
+              <div className="mb-2 flex items-center justify-between">
+                <span className="text-sm font-medium">#{i + 1}</span>
+                {i > 0 && (
+                  <button
+                    type="button"
+                    onClick={() => array.remove(i)}
+                    className="text-xs text-[var(--kodi-coral)] transition-transform duration-150 active:scale-[0.97]"
+                  >
+                    {t("fields.removeBranch")}
+                  </button>
+                )}
+              </div>
+              <div className="flex flex-col gap-3">
+                <Field
+                  label={t("fields.branchName")}
+                  required
+                  error={err(be?.name?.message)}
                 >
-                  {t("fields.removeBranch")}
-                </button>
-              )}
-            </div>
-            <div className="flex flex-col gap-3">
-              <Field label={t("fields.branchName")} required>
-                {({ id }) => (
-                  <TextInput id={id} maxLength={60}
-                    {...register(`branches.${i}.name` as const)} />
-                )}
-              </Field>
-              <Field label={t("fields.branchCanton")} required>
-                {({ id }) => (
-                  <Select id={id} {...register(`branches.${i}.canton` as const)}>
-                    <option value="">{t("fields.cantonPlaceholder")}</option>
-                    {GAM_CANTONS.map((c) => (
-                      <option key={c} value={c}>{c}</option>
-                    ))}
-                  </Select>
-                )}
-              </Field>
-              <Field label={t("fields.branchAddress")}>
-                {({ id }) => (
-                  <TextInput id={id}
-                    {...register(`branches.${i}.address` as const)} />
-                )}
-              </Field>
-            </div>
-          </motion.div>
-        ))}
+                  {({ id, describedBy }) => (
+                    <TextInput
+                      id={id}
+                      aria-describedby={describedBy}
+                      aria-invalid={!!be?.name}
+                      maxLength={60}
+                      {...register(`branches.${i}.name` as const)}
+                    />
+                  )}
+                </Field>
+                <Field
+                  label={t("fields.branchCanton")}
+                  required
+                  error={err(be?.canton?.message)}
+                >
+                  {({ id, describedBy }) => (
+                    <Select
+                      id={id}
+                      aria-describedby={describedBy}
+                      aria-invalid={!!be?.canton}
+                      {...register(`branches.${i}.canton` as const)}
+                    >
+                      <option value="">{t("fields.cantonPlaceholder")}</option>
+                      {GAM_CANTONS.map((c) => (
+                        <option key={c} value={c}>
+                          {c}
+                        </option>
+                      ))}
+                    </Select>
+                  )}
+                </Field>
+                <Field label={t("fields.branchAddress")}>
+                  {({ id, describedBy }) => (
+                    <TextInput
+                      id={id}
+                      aria-describedby={describedBy}
+                      {...register(`branches.${i}.address` as const)}
+                    />
+                  )}
+                </Field>
+              </div>
+            </motion.div>
+          );
+        })}
       </AnimatePresence>
 
       <button

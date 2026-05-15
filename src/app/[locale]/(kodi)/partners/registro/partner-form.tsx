@@ -3,6 +3,7 @@
 import { useState, useTransition } from "react";
 import { useForm, useFieldArray, FormProvider, type DefaultValues } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { MotionConfig } from "motion/react";
 import { useTranslations, useLocale } from "next-intl";
 import { partnerSchema, type PartnerFormValues } from "./schema";
 import { MAX_LOGO_BYTES, MAX_PHOTO_BYTES, LOGO_MIN_PX } from "./data";
@@ -115,6 +116,7 @@ export function PartnerForm() {
   }
 
   return (
+    <MotionConfig reducedMotion="user">
     <div className="mx-auto w-full max-w-2xl px-5 py-10 lg:px-8">
       <header className="mb-8">
         <h1 className="font-dongle text-5xl font-bold text-[var(--kodi-ink)]">
@@ -127,6 +129,7 @@ export function PartnerForm() {
         <form
           noValidate
           onSubmit={methods.handleSubmit(onValid)}
+          aria-busy={pending}
           className="flex flex-col gap-10"
         >
           <input
@@ -138,18 +141,20 @@ export function PartnerForm() {
             {...methods.register("honeypot")}
           />
 
-          <BusinessSection />
-          <BranchesSection array={branchesArray} />
-          <ContactSection />
-          <CouponSection branches={methods.watch("branches")} />
-          <MediaSection
-            logo={logo}
-            photo={photo}
-            onLogo={setLogo}
-            onPhoto={setPhoto}
-            fileError={fileError}
-          />
-          <ConfirmationSection />
+          <fieldset disabled={pending} className="contents">
+            <BusinessSection />
+            <BranchesSection array={branchesArray} />
+            <ContactSection />
+            <CouponSection branches={methods.watch("branches")} />
+            <MediaSection
+              logo={logo}
+              photo={photo}
+              onLogo={setLogo}
+              onPhoto={setPhoto}
+              fileError={fileError}
+            />
+            <ConfirmationSection />
+          </fieldset>
 
           {submitError && (
             <p role="alert" className="text-sm text-[var(--kodi-coral)]">
@@ -160,10 +165,20 @@ export function PartnerForm() {
           <button
             type="submit"
             disabled={pending || !methods.watch("confirmation.accepted")}
-            className="rounded-xl bg-[var(--kodi-teal)] px-6 py-3 font-semibold text-white transition-[transform,background-color] duration-150 hover:bg-[var(--kodi-teal-strong)] active:scale-[0.97] disabled:opacity-50"
+            className="inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--kodi-teal)] px-6 py-3 font-semibold text-white transition-[transform,background-color] duration-150 hover:bg-[var(--kodi-teal-strong)] active:scale-[0.97] disabled:opacity-50"
             aria-disabled={pending || !methods.watch("confirmation.accepted")}
           >
-            {pending ? t("fields.submitting") : t("fields.submit")}
+            {pending ? (
+              <>
+                <span
+                  className="size-4 animate-spin rounded-full border-2 border-white/40 border-t-white"
+                  aria-hidden
+                />
+                {t("fields.submitting")}
+              </>
+            ) : (
+              t("fields.submit")
+            )}
           </button>
           {!methods.watch("confirmation.accepted") && (
             <p className="text-xs text-[var(--kodi-ink-soft)]">
@@ -173,5 +188,6 @@ export function PartnerForm() {
         </form>
       </FormProvider>
     </div>
+    </MotionConfig>
   );
 }
