@@ -49,7 +49,11 @@ export async function generateMetadata({
   };
 }
 
-export default function SiteLayout({ children }: Props) {
+export default function SiteLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <>
       <BackgroundEffect />
