@@ -191,7 +191,7 @@ export function Footer() {
             </p>
           </div>
           <div className="flex flex-col gap-4 text-xs text-neutral-600 sm:flex-row sm:items-center sm:text-sm">
-            <p>&copy;{t("copyright")}</p>
+            <p>&copy;{t("copyright", { year: new Date().getFullYear() })}</p>
             <span className="hidden sm:inline">&bull;</span>
             <Link
               href="/privacy"
