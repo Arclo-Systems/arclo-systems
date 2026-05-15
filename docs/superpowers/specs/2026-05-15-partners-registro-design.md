@@ -89,7 +89,7 @@ Escala neutral: tomar la escala neutral del PRD, convertir a OKLCH y tintar leve
 ## 5. Shell `(kodi)`
 
 - **Header:** banda con fondo teal Kódi `#408D99`, alto compacto. `kodi.svg` a la izquierda (alto ~28–32px, ratio ~3:1, color blanco original que contrasta sobre el teal), `LanguageSwitcher` reutilizado a la derecha (adaptado a contraste sobre teal). Sticky opcional, sin sombra dura.
-- **Footer slim:** una línea, © Kódi + año, enlaces a Privacidad/Términos si existen para Kódi (si no, omitir enlaces). No es el footer de Arclo.
+- **Footer slim:** una sola línea con © Kódi + año. No hay páginas legales propias de Kódi en este repo, así que no lleva enlaces legales. No es el footer de Arclo.
 - **KodiBackdrop:** ver §12.
 - **Metadata:** `partners/registro/page.tsx` exporta su propio `generateMetadata` (title/description bilingüe desde `Partners`), `metadataBase` propio, indexable. No hereda OG de Arclo.
 
@@ -183,7 +183,9 @@ Nombre propio, idéntico ES/EN. El límite del GAM es difuso según la fuente; v
 
 Server action `submitPartnerRegistration` en `src/app/actions/partners.ts`:
 
-1. Recibe `FormData` (campos escalares + `File` de logo y foto).
+En cliente, RHF valida con el resolver Zod; en submit válido construye un `FormData` (campos escalares + `File` de logo y foto + honeypot) e invoca el server action, que:
+
+1. Recibe ese `FormData` (campos escalares + `File` de logo y foto).
 2. Revalida campos con el esquema Zod compartido; valida archivos (tipo, tamaño, y para PNG dimensiones mín) con el helper compartido. Si falla → `{ success: false, error }` sin enviar nada.
 3. Anti-spam: campo honeypot oculto; si viene lleno → responder éxito falso sin enviar.
 4. Email 1 al equipo Kódi (`PARTNER_RECIPIENT`, env nuevo): HTML formateado con todos los campos (escapados) + **logo y foto como adjuntos** (base64). Total adjuntos ≤ ~7MB (2MB + 5MB), bajo el límite Brevo.
