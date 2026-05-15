@@ -16,17 +16,17 @@ describe("validateUpload", () => {
   it("rechaza tipo no permitido", () => {
     const r = validateUpload(fakeFile("logo.gif", "image/gif", 1000), { accept: ["image/png", "image/svg+xml"], maxBytes: MAX_LOGO_BYTES, required: true });
     expect(r.ok).toBe(false);
-    expect(r.error).toBe("invalid_type");
+    if (!r.ok) expect(r.error).toBe("invalid_type");
   });
   it("rechaza archivo demasiado grande", () => {
     const r = validateUpload(fakeFile("logo.png", "image/png", MAX_LOGO_BYTES + 1), { accept: ["image/png", "image/svg+xml"], maxBytes: MAX_LOGO_BYTES, required: true });
     expect(r.ok).toBe(false);
-    expect(r.error).toBe("too_large");
+    if (!r.ok) expect(r.error).toBe("too_large");
   });
   it("rechaza ausencia cuando es requerido", () => {
     const r = validateUpload(null, { accept: ["image/png"], maxBytes: MAX_LOGO_BYTES, required: true });
     expect(r.ok).toBe(false);
-    expect(r.error).toBe("required");
+    if (!r.ok) expect(r.error).toBe("required");
   });
   it("acepta ausencia cuando es opcional", () => {
     const r = validateUpload(null, { accept: ["image/png"], maxBytes: MAX_LOGO_BYTES, required: false });
