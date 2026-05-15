@@ -5,7 +5,13 @@ import { useTranslations } from "next-intl";
 import type { PartnerFormValues } from "../schema";
 import { BUSINESS_CATEGORIES, GAM_CANTONS } from "../data";
 import { Field } from "../fields/field";
-import { TextInput, Select, TextareaCounter, RadioGroup } from "../fields/inputs";
+import {
+  TextInput,
+  Select,
+  TextareaCounter,
+  RadioGroup,
+  AffixInput,
+} from "../fields/inputs";
 
 export function BusinessSection() {
   const t = useTranslations("Partners");
@@ -49,31 +55,71 @@ export function BusinessSection() {
         )}
       </Field>
 
-      <Field label={t("fields.website")} error={err(e?.website?.message)}>
-        {({ id, describedBy }) => (
-          <TextInput id={id} aria-describedby={describedBy}
-            placeholder="https://" {...register("business.website")} />
+      <Controller
+        control={control}
+        name="business.website"
+        render={({ field }) => (
+          <Field label={t("fields.website")} error={err(e?.website?.message)}>
+            {({ id, describedBy }) => (
+              <AffixInput
+                prefix="https://"
+                id={id}
+                aria-describedby={describedBy}
+                aria-invalid={!!e?.website}
+                inputMode="url"
+                placeholder="tunegocio.com"
+                value={field.value ? field.value.replace(/^https?:\/\//i, "") : ""}
+                onChange={(ev) => {
+                  const raw = ev.target.value
+                    .replace(/^https?:\/\//i, "")
+                    .replace(/^\/+/, "");
+                  field.onChange(raw ? `https://${raw}` : "");
+                }}
+                onBlur={field.onBlur}
+              />
+            )}
+          </Field>
         )}
-      </Field>
+      />
 
       <Field label={t("fields.instagram")} error={err(e?.instagram?.message)}>
         {({ id, describedBy }) => (
-          <TextInput id={id} aria-describedby={describedBy}
-            {...register("business.instagram")} />
+          <AffixInput prefix="@" id={id} aria-describedby={describedBy}
+            aria-invalid={!!e?.instagram} {...register("business.instagram")} />
         )}
       </Field>
 
-      <Field label={t("fields.facebook")} error={err(e?.facebook?.message)}>
-        {({ id, describedBy }) => (
-          <TextInput id={id} aria-describedby={describedBy}
-            placeholder="https://" {...register("business.facebook")} />
+      <Controller
+        control={control}
+        name="business.facebook"
+        render={({ field }) => (
+          <Field label={t("fields.facebook")} error={err(e?.facebook?.message)}>
+            {({ id, describedBy }) => (
+              <AffixInput
+                prefix="https://"
+                id={id}
+                aria-describedby={describedBy}
+                aria-invalid={!!e?.facebook}
+                inputMode="url"
+                placeholder="facebook.com/tunegocio"
+                value={field.value ? field.value.replace(/^https?:\/\//i, "") : ""}
+                onChange={(ev) => {
+                  const raw = ev.target.value
+                    .replace(/^https?:\/\//i, "")
+                    .replace(/^\/+/, "");
+                  field.onChange(raw ? `https://${raw}` : "");
+                }}
+                onBlur={field.onBlur}
+              />
+            )}
+          </Field>
         )}
-      </Field>
+      />
 
       <Field label={t("fields.tiktok")} error={err(e?.tiktok?.message)}>
         {({ id, describedBy }) => (
-          <TextInput id={id} aria-describedby={describedBy}
-            {...register("business.tiktok")} />
+          <AffixInput prefix="@" id={id} aria-describedby={describedBy}
+            aria-invalid={!!e?.tiktok} {...register("business.tiktok")} />
         )}
       </Field>
 

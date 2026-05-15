@@ -27,6 +27,32 @@ export const Select = forwardRef<
   return <select ref={ref} className={cn(base, className)} {...props} />;
 });
 
+export const AffixInput = forwardRef<
+  HTMLInputElement,
+  React.ComponentProps<"input"> & { prefix: string }
+>(function AffixInput({ prefix, className, ...props }, ref) {
+  return (
+    <div
+      className={cn(
+        "flex w-full items-center rounded-lg border border-[var(--kodi-border)] bg-[var(--kodi-surface-2)] text-sm text-[var(--kodi-ink)] transition-[border-color,box-shadow] duration-150 focus-within:border-[var(--kodi-teal)] focus-within:ring-2 focus-within:ring-[var(--kodi-ring)]/40",
+        className,
+      )}
+    >
+      <span
+        aria-hidden
+        className="select-none py-2 pl-3 pr-1 text-[var(--kodi-ink-soft)]"
+      >
+        {prefix}
+      </span>
+      <input
+        ref={ref}
+        className="min-w-0 flex-1 rounded-r-lg bg-transparent py-2 pr-3 outline-none disabled:opacity-50"
+        {...props}
+      />
+    </div>
+  );
+});
+
 export function TextareaCounter({
   value,
   max,
