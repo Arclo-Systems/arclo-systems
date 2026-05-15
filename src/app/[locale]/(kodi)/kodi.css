@@ -23,5 +23,5 @@
 
 .kodi-scope ::selection {
   background: var(--kodi-teal);
-  color: white;
+  color: oklch(1 0 0);
 }

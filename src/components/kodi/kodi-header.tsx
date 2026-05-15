@@ -3,7 +3,7 @@ import { LanguageSwitcher } from "@/components/language-switcher";
 
 export function KodiHeader() {
   return (
-    <header className="sticky top-0 z-30 bg-[var(--kodi-teal)]">
+    <header className="sticky top-0 z-30 bg-[var(--kodi-teal-strong)]">
       <div className="mx-auto flex w-full max-w-3xl items-center justify-between px-5 py-3 lg:px-8">
         <Image
           src="/assets/kodi/kodi.svg"
@@ -13,7 +13,7 @@ export function KodiHeader() {
           priority
           className="h-7 w-auto sm:h-8"
         />
-        <div className="[&_button]:border-white/40 [&_button]:text-white/80 [&_span]:!text-white/60 [&_.font-semibold]:!text-white">
+        <div className="[&_button]:border-white/50 [&_button]:text-white [&_span]:!text-white [&_.font-semibold]:!text-white">
           <LanguageSwitcher />
         </div>
       </div>
