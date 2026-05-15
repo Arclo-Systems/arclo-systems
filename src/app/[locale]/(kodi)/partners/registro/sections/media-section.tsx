@@ -1,8 +1,6 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Field } from "../fields/field";
-import { FileInput } from "../fields/inputs";
 
 export function MediaSection({
   logo,
@@ -21,33 +19,46 @@ export function MediaSection({
 
   return (
     <section className="flex flex-col gap-5">
-      <h2 className="font-dongle text-3xl font-bold">{t("sections.media")}</h2>
+      <h2 className="text-lg font-semibold">{t("sections.media")}</h2>
 
-      <Field label={t("fields.logo")} required hint={t("fields.logoHint")}
-        error={fileError ?? undefined}>
-        {() => (
-          <FileInput
+      <div className="flex flex-col gap-2">
+        <p className="text-sm font-medium">
+          {t("fields.logo")}
+          <span className="text-[var(--kodi-coral)]"> *</span>
+        </p>
+        <p className="text-xs text-muted-foreground">{t("fields.logoHint")}</p>
+        <label className="inline-flex w-fit cursor-pointer items-center rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-xs transition-[color,box-shadow] hover:border-ring active:scale-[0.98]">
+          <input
+            type="file"
             accept="image/png,image/svg+xml"
-            onChange={onLogo}
-            fileName={logo?.name}
-            buttonLabel={t("fields.selectFile")}
+            className="sr-only"
+            onChange={(e) => onLogo(e.target.files?.[0] ?? null)}
           />
+          {logo?.name ?? t("fields.selectFile")}
+        </label>
+        {fileError && (
+          <p role="alert" className="text-sm text-[var(--kodi-coral)]">
+            {fileError}
+          </p>
         )}
-      </Field>
+      </div>
 
-      <Field label={t("fields.photo")} hint={t("fields.photoHint")}>
-        {() => (
-          <FileInput
+      <div className="flex flex-col gap-2">
+        <p className="text-sm font-medium">{t("fields.photo")}</p>
+        <p className="text-xs text-muted-foreground">{t("fields.photoHint")}</p>
+        <label className="inline-flex w-fit cursor-pointer items-center rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-xs transition-[color,box-shadow] hover:border-ring active:scale-[0.98]">
+          <input
+            type="file"
             accept="image/jpeg,image/png"
-            onChange={onPhoto}
-            fileName={photo?.name}
-            buttonLabel={t("fields.selectFile")}
+            className="sr-only"
+            onChange={(e) => onPhoto(e.target.files?.[0] ?? null)}
           />
-        )}
-      </Field>
+          {photo?.name ?? t("fields.selectFile")}
+        </label>
+      </div>
 
       {!photo && (
-        <p className="rounded-lg bg-[var(--kodi-gold)]/15 px-3 py-2 text-sm text-[var(--kodi-ink)]">
+        <p className="rounded-md bg-[var(--kodi-gold)]/15 px-3 py-2 text-sm">
           {t("fields.photoNudge")}
         </p>
       )}
