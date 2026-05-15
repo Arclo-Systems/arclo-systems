@@ -1,6 +1,7 @@
 "use client";
 
 import { forwardRef } from "react";
+import { cn } from "@/lib/utils";
 
 const base =
   "w-full rounded-lg border border-[var(--kodi-border)] bg-[var(--kodi-surface-2)] px-3 py-2 text-sm text-[var(--kodi-ink)] outline-none transition-[border-color,box-shadow] duration-150 focus-visible:border-[var(--kodi-teal)] focus-visible:ring-2 focus-visible:ring-[var(--kodi-ring)]/40 disabled:opacity-50";
@@ -8,33 +9,34 @@ const base =
 export const TextInput = forwardRef<
   HTMLInputElement,
   React.ComponentProps<"input">
->(function TextInput(props, ref) {
-  return <input ref={ref} className={base} {...props} />;
+>(function TextInput({ className, ...props }, ref) {
+  return <input ref={ref} className={cn(base, className)} {...props} />;
 });
 
 export const DateInput = forwardRef<
   HTMLInputElement,
   React.ComponentProps<"input">
->(function DateInput(props, ref) {
-  return <input ref={ref} type="date" className={base} {...props} />;
+>(function DateInput({ className, ...props }, ref) {
+  return <input ref={ref} type="date" className={cn(base, className)} {...props} />;
 });
 
 export const Select = forwardRef<
   HTMLSelectElement,
   React.ComponentProps<"select">
->(function Select(props, ref) {
-  return <select ref={ref} className={base} {...props} />;
+>(function Select({ className, ...props }, ref) {
+  return <select ref={ref} className={cn(base, className)} {...props} />;
 });
 
 export function TextareaCounter({
   value,
   max,
+  className,
   ...props
 }: React.ComponentProps<"textarea"> & { value: string; max: number }) {
   return (
     <div className="flex flex-col gap-1">
       <textarea
-        className={`${base} min-h-24 resize-y`}
+        className={cn(base, "min-h-24 resize-y", className)}
         maxLength={max}
         value={value}
         {...props}
@@ -148,11 +150,13 @@ export function FileInput({
   accept,
   onChange,
   fileName,
+  buttonLabel,
   ...props
 }: Omit<React.ComponentProps<"input">, "type" | "onChange"> & {
   accept: string;
   onChange: (file: File | null) => void;
   fileName?: string;
+  buttonLabel: string;
 }) {
   return (
     <div className="flex items-center gap-3">
@@ -164,7 +168,7 @@ export function FileInput({
           onChange={(e) => onChange(e.target.files?.[0] ?? null)}
           {...props}
         />
-        {fileName ? fileName : "Seleccionar archivo"}
+        {fileName ?? buttonLabel}
       </label>
     </div>
   );
