@@ -1,0 +1,27 @@
+.kodi-scope {
+  --kodi-surface: oklch(0.99 0.006 200);
+  --kodi-surface-2: oklch(0.972 0.008 200);
+  --kodi-ink: oklch(0.26 0.04 40);
+  --kodi-ink-soft: oklch(0.46 0.03 40);
+  --kodi-teal: oklch(0.62 0.075 205);
+  --kodi-teal-strong: oklch(0.55 0.085 205);
+  --kodi-coral: oklch(0.72 0.15 30);
+  --kodi-gold: oklch(0.79 0.13 85);
+  --kodi-border: oklch(0.9 0.01 205);
+  --kodi-ring: oklch(0.62 0.075 205);
+  --kodi-ease: cubic-bezier(0.23, 1, 0.32, 1);
+
+  background-color: var(--kodi-surface);
+  color: var(--kodi-ink);
+  font-family: var(--font-poppins), system-ui, sans-serif;
+  min-height: 100dvh;
+}
+
+.kodi-scope .font-dongle {
+  font-family: var(--font-dongle), var(--font-poppins), sans-serif;
+}
+
+.kodi-scope ::selection {
+  background: var(--kodi-teal);
+  color: oklch(1 0 0);
+}

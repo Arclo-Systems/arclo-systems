@@ -95,7 +95,7 @@
       "description": "Digital platform that replaced a spreadsheet-based system. Trip lifecycle engine with 4 states, route tracking, automatic rate calculation, role-based dashboards and real-time notifications."
     },
     "project3": {
-      "name": "Kódi",
+      "name": "Kodi",
       "tag": "In Development",
       "description": "Platform under active development. More details coming soon."
     }
@@ -208,5 +208,85 @@
     "section9Content": "We reserve the right to update this policy. Any changes will be posted on this page with the corresponding update date.",
     "section10Title": "10. Contact",
     "section10Content": "For privacy inquiries, contact us at info@arclosystems.com."
+  },
+  "Partners": {
+    "meta": { "title": "Become a Kódi partner", "description": "Register your business as a Kódi partner and reach students across the country." },
+    "header": { "title": "Register your business", "subtitle": "Fill the form and our team will contact you to activate you." },
+    "sections": {
+      "business": "Business details",
+      "branches": "Branches",
+      "contact": "Contact details",
+      "coupon": "Coupon setup",
+      "media": "Visual materials",
+      "confirmation": "Confirmation and submit"
+    },
+    "fields": {
+      "name": "Business name",
+      "category": "Business category",
+      "categoryPlaceholder": "Choose a category",
+      "canton": "Main zone / canton",
+      "cantonPlaceholder": "Choose a canton",
+      "website": "Website",
+      "instagram": "Instagram (no @)",
+      "facebook": "Facebook",
+      "tiktok": "TikTok (no @)",
+      "description": "Business description",
+      "hasMultipleBranches": "More than one branch?",
+      "yes": "Yes",
+      "no": "No",
+      "branchName": "Branch name",
+      "branchCanton": "Zone / canton",
+      "branchAddress": "Exact address",
+      "addBranch": "+ Add branch",
+      "removeBranch": "Remove branch",
+      "fullName": "Full name",
+      "role": "Role",
+      "email": "Email",
+      "whatsapp": "WhatsApp",
+      "discountType": "Discount type",
+      "percentage": "Percentage (%)",
+      "fixed": "Fixed amount (₡)",
+      "discountValue": "Discount value",
+      "couponDescription": "Coupon description",
+      "quantity": "Coupon quantity",
+      "deadline": "Redemption deadline",
+      "branchesScope": "Which branches does it apply to?",
+      "allBranches": "All branches",
+      "conditions": "Additional conditions",
+      "logo": "Logo",
+      "logoHint": "PNG or SVG with transparent background. Max 2MB. Minimum 400x400px.",
+      "photo": "Business or product photo",
+      "photoHint": "JPG or PNG. Max 5MB.",
+      "photoNudge": "Partners with a photo get 3x more clicks in the app",
+      "selectFile": "Choose file",
+      "accept": "I understand the first month is completely free with no further commitment. At the end I will receive a results report.",
+      "submit": "Submit registration",
+      "submitting": "Submitting…",
+      "submitDisabled": "Accept the terms to submit"
+    },
+    "errors": {
+      "required": "Required field",
+      "max": "Exceeds the allowed maximum",
+      "invalid_url": "Invalid URL",
+      "invalid_handle": "Invalid handle (letters, numbers, dot and underscore only)",
+      "name_letters_only": "Letters and spaces only",
+      "invalid_whatsapp": "Must be exactly 8 digits",
+      "percent_range": "Percentage must be between 5 and 100",
+      "fixed_min": "Minimum fixed amount is 500 colones (no decimals)",
+      "deadline_window": "Date must be between 15 and 90 days from today",
+      "branches_min": "Minimum 2 branches",
+      "branches_max": "Maximum 20 branches",
+      "scope_required": "Pick at least one branch",
+      "must_accept": "You must accept the terms",
+      "file_required": "Upload the logo",
+      "file_invalid_type": "File type not allowed",
+      "file_too_large": "File is too large",
+      "file_dimensions": "Logo must be at least 400x400px",
+      "submit_failed": "Could not submit. Try again."
+    },
+    "success": {
+      "title": "Done! We received your registration",
+      "body": "Our team will contact you soon to activate you. The first month is free with no commitment."
+    }
   }
 }

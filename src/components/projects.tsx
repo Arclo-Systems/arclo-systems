@@ -4,11 +4,13 @@ import { useTranslations } from "next-intl";
 import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/reveal";
 import { BlurHighlight } from "@/components/blur-highlight";
+import HoverPreview from "@/components/hover-preview";
 
 const projects = [
   {
     key: "project1",
     href: "https://milopay.app/",
+    logo: "/projects/MiloPay.svg",
     stack: ["Next.js", "NestJS", "TypeScript", "Tailwind CSS", "PostgreSQL"],
   },
   {
@@ -57,9 +59,29 @@ export function Projects() {
 
                   <div className="flex flex-1 flex-col gap-2">
                     <div className="flex items-center gap-3">
-                      <h3 className="text-xl font-semibold text-neutral-900 sm:text-2xl">
-                        {t(`${project.key}.name`)}
-                      </h3>
+                      {"logo" in project && project.logo ? (
+                        <HoverPreview
+                          content="{0}"
+                          targets={[
+                            {
+                              text: t(`${project.key}.name`),
+                              imageUrl: project.logo,
+                              altText: t(`${project.key}.name`),
+                            },
+                          ]}
+                          imageWidth={280}
+                          imageHeight={74}
+                          imagePosition="above"
+                          imageBorderRadius="1rem"
+                          showImageShadow
+                          className="text-xl font-semibold text-neutral-900 sm:text-2xl"
+                          targetClassName="hover:text-[#2563EB] transition-colors duration-200"
+                        />
+                      ) : (
+                        <h3 className="text-xl font-semibold text-neutral-900 sm:text-2xl">
+                          {t(`${project.key}.name`)}
+                        </h3>
+                      )}
                       {project.href && (
                         <a
                           href={project.href}
