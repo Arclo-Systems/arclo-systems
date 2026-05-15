@@ -1,10 +1,10 @@
-# Formulario de registro de partners (Kódi) — Implementation Plan
+# Formulario de registro de partners (Kodi) — Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Construir la página pública bilingüe `/[locale]/partners/registro` con marca Kódi, formulario de 6 secciones validado y envío por correo Brevo, sin afectar el sitio Arclo.
+**Goal:** Construir la página pública bilingüe `/[locale]/partners/registro` con marca Kodi, formulario de 6 secciones validado y envío por correo Brevo, sin afectar el sitio Arclo.
 
-**Architecture:** Refactor del `[locale]/layout.tsx` a route groups `(site)` (chrome Arclo) y `(kodi)` (shell Kódi). Lógica de validación pura (Zod schema, validación de archivos, helpers de email) cubierta con tests Vitest en TDD. UI (refactor de layouts, tokens CSS, componentes de formulario) verificada con typecheck + lint + build + smoke en dev, ya que el proyecto no tiene harness de componentes y agregarlo para una página de formulario sería desproporcionado.
+**Architecture:** Refactor del `[locale]/layout.tsx` a route groups `(site)` (chrome Arclo) y `(kodi)` (shell Kodi). Lógica de validación pura (Zod schema, validación de archivos, helpers de email) cubierta con tests Vitest en TDD. UI (refactor de layouts, tokens CSS, componentes de formulario) verificada con typecheck + lint + build + smoke en dev, ya que el proyecto no tiene harness de componentes y agregarlo para una página de formulario sería desproporcionado.
 
 **Tech Stack:** Next.js 16 (App Router), React 19, next-intl 4, Tailwind v4, Radix UI, React Hook Form + Zod, Vitest (solo lógica), Brevo (email, patrón existente).
 
@@ -16,18 +16,18 @@
 |---------|-----------------|
 | `src/app/[locale]/layout.tsx` (modificar) | Solo i18n: validación de locale + `NextIntlClientProvider` |
 | `src/app/[locale]/(site)/layout.tsx` (crear) | Chrome Arclo: `BackgroundEffect` + `PagePreloader` + `Navbar` + `generateMetadata` Arclo |
-| `src/app/[locale]/(kodi)/layout.tsx` (crear) | Shell Kódi: scope de tokens/fuentes + header + backdrop + footer |
-| `src/app/[locale]/(kodi)/kodi.css` (crear) | Tokens Kódi OKLCH scoped |
+| `src/app/[locale]/(kodi)/layout.tsx` (crear) | Shell Kodi: scope de tokens/fuentes + header + backdrop + footer |
+| `src/app/[locale]/(kodi)/kodi.css` (crear) | Tokens Kodi OKLCH scoped |
 | `src/app/[locale]/(kodi)/fonts.ts` (crear) | Fuentes Poppins + Dongle |
 | `src/components/kodi/kodi-header.tsx` (crear) | Header banda teal + logo + idioma |
 | `src/components/kodi/kodi-backdrop.tsx` (crear) | Personajes de fondo estáticos |
-| `src/components/kodi/kodi-footer.tsx` (crear) | Footer slim © Kódi |
+| `src/components/kodi/kodi-footer.tsx` (crear) | Footer slim © Kodi |
 | `src/app/[locale]/(kodi)/partners/registro/page.tsx` (crear) | Metadata + render del formulario |
 | `src/app/[locale]/(kodi)/partners/registro/data.ts` (crear) | Categorías, cantones, constantes |
 | `src/app/[locale]/(kodi)/partners/registro/schema.ts` (crear) | Esquema Zod + tipos |
 | `src/app/[locale]/(kodi)/partners/registro/partner-form.tsx` (crear) | Orquestador RHF |
 | `src/app/[locale]/(kodi)/partners/registro/sections/*.tsx` (crear) | 6 secciones |
-| `src/app/[locale]/(kodi)/partners/registro/fields/*.tsx` (crear) | Primitivas de campo Kódi |
+| `src/app/[locale]/(kodi)/partners/registro/fields/*.tsx` (crear) | Primitivas de campo Kodi |
 | `src/lib/file-validation.ts` (crear) | Validación de tipo/tamaño/dimensiones |
 | `src/lib/email.ts` (crear) | `escapeHtml` + `sendBrevoEmail` |
 | `src/app/actions/partners.ts` (crear) | Server action de envío |
@@ -148,7 +148,7 @@ git commit -m "🔧 chore: configurar Vitest para tests de lógica"
 BREVO_API_KEY=
 BREVO_SENDER_EMAIL=
 CONTACT_RECIPIENT=
-# Nuevo: correo del equipo Kódi que recibe registros de partners
+# Nuevo: correo del equipo Kodi que recibe registros de partners
 PARTNER_RECIPIENT=
 ```
 
@@ -315,9 +315,9 @@ git commit -m "♻️ refactor: mover páginas Arclo a (site) sin cambiar URLs"
 
 ---
 
-## Fase B — Shell Kódi
+## Fase B — Shell Kodi
 
-### Task B.1: Fuentes y tokens Kódi
+### Task B.1: Fuentes y tokens Kodi
 
 **Files:**
 - Create: `src/app/[locale]/(kodi)/fonts.ts`
@@ -379,10 +379,10 @@ export const dongle = Dongle({
 
 ```bash
 git add "src/app/[locale]/(kodi)/fonts.ts" "src/app/[locale]/(kodi)/kodi.css"
-git commit -m "✨ feat: fuentes y tokens de marca Kódi scoped"
+git commit -m "✨ feat: fuentes y tokens de marca Kodi scoped"
 ```
 
-### Task B.2: Header, backdrop y footer Kódi
+### Task B.2: Header, backdrop y footer Kodi
 
 **Files:**
 - Create: `src/components/kodi/kodi-header.tsx`
@@ -401,7 +401,7 @@ export function KodiHeader() {
       <div className="mx-auto flex w-full max-w-3xl items-center justify-between px-5 py-3 lg:px-8">
         <Image
           src="/assets/kodi/kodi.svg"
-          alt="Kódi"
+          alt="Kodi"
           width={1206}
           height={391}
           priority
@@ -463,7 +463,7 @@ export function KodiBackdrop() {
 export function KodiFooter() {
   return (
     <footer className="border-t border-[var(--kodi-border)] px-5 py-6 text-center text-xs text-[var(--kodi-ink-soft)]">
-      © {new Date().getFullYear()} Kódi
+      © {new Date().getFullYear()} Kodi
     </footer>
   );
 }
@@ -478,7 +478,7 @@ Expected: sin errores.
 
 ```bash
 git add src/components/kodi
-git commit -m "✨ feat: header, backdrop y footer del shell Kódi"
+git commit -m "✨ feat: header, backdrop y footer del shell Kodi"
 ```
 
 ### Task B.3: Layout `(kodi)` y página placeholder
@@ -538,24 +538,24 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default function PartnersRegistroPage() {
   return (
     <div className="mx-auto w-full max-w-3xl px-5 py-12 lg:px-8">
-      <h1 className="font-dongle text-5xl font-bold">Kódi Partners</h1>
+      <h1 className="font-dongle text-5xl font-bold">Kodi Partners</h1>
     </div>
   );
 }
 ```
 
-> Nota: `page.tsx` usa el namespace `Partners`, que se crea en la Fase D. Si se ejecuta antes que la Fase D, agregar temporalmente `"Partners": { "meta": { "title": "Kódi Partners", "description": "Registro de partners" } }` a `es.json`/`en.json`; la Fase D lo reemplaza por el bloque completo.
+> Nota: `page.tsx` usa el namespace `Partners`, que se crea en la Fase D. Si se ejecuta antes que la Fase D, agregar temporalmente `"Partners": { "meta": { "title": "Kodi Partners", "description": "Registro de partners" } }` a `es.json`/`en.json`; la Fase D lo reemplaza por el bloque completo.
 
 - [ ] **Step 3: Build y smoke**
 
 Run: `npm run build` y luego `npm run dev`, abrir `http://localhost:3000/es/partners/registro`.
-Expected: superficie clara Kódi, header banda teal con logo blanco visible, sin navbar Arclo ni fondo glitter. `/es` sigue Arclo intacto.
+Expected: superficie clara Kodi, header banda teal con logo blanco visible, sin navbar Arclo ni fondo glitter. `/es` sigue Arclo intacto.
 
 - [ ] **Step 4: Commit**
 
 ```bash
 git add "src/app/[locale]/(kodi)/layout.tsx" "src/app/[locale]/(kodi)/partners/registro/page.tsx"
-git commit -m "✨ feat: layout del shell Kódi y ruta /partners/registro"
+git commit -m "✨ feat: layout del shell Kodi y ruta /partners/registro"
 ```
 
 ---
@@ -1211,7 +1211,7 @@ export async function sendBrevoEmail(
       "api-key": apiKey,
     },
     body: JSON.stringify({
-      sender: { name: "Kódi", email: senderEmail },
+      sender: { name: "Kodi", email: senderEmail },
       to: [input.to],
       ...(input.replyTo ? { replyTo: input.replyTo } : {}),
       subject: input.subject,
@@ -1375,18 +1375,18 @@ export async function submitPartnerRegistration(
     <h2>¡Recibimos tu registro, ${escapeHtml(d.business.name)}!</h2>
     <p>Entendemos que el primer mes es completamente gratuito y sin compromiso posterior. Al finalizar recibirás un reporte de resultados.</p>
     <p>Nuestro equipo te contactará pronto al WhatsApp ${escapeHtml(d.contact.whatsapp)}.</p>
-    <p>— Equipo Kódi</p>
+    <p>— Equipo Kodi</p>
   `;
   const confirmEn = `
     <h2>We got your registration, ${escapeHtml(d.business.name)}!</h2>
     <p>You understand the first month is completely free with no further commitment. At the end you will receive a results report.</p>
     <p>Our team will contact you soon at WhatsApp ${escapeHtml(d.contact.whatsapp)}.</p>
-    <p>— Kódi Team</p>
+    <p>— Kodi Team</p>
   `;
 
   await sendBrevoEmail({
     to: { email: d.contact.email, name: d.contact.fullName },
-    subject: locale === "en" ? "Kódi — registration received" : "Kódi — registro recibido",
+    subject: locale === "en" ? "Kodi — registration received" : "Kodi — registro recibido",
     htmlContent: locale === "en" ? confirmEn : confirmEs,
   });
 
@@ -1420,7 +1420,7 @@ git commit -m "✨ feat: server action de registro de partners (Brevo + adjuntos
 
 ```json
 "Partners": {
-  "meta": { "title": "Sé partner de Kódi", "description": "Registrá tu negocio como partner de Kódi y llegá a estudiantes de todo el país." },
+  "meta": { "title": "Sé partner de Kodi", "description": "Registrá tu negocio como partner de Kodi y llegá a estudiantes de todo el país." },
   "header": { "title": "Registrá tu negocio", "subtitle": "Llená el formulario y nuestro equipo te contacta para activarte." },
   "sections": {
     "business": "Datos del negocio",
@@ -1504,7 +1504,7 @@ git commit -m "✨ feat: server action de registro de partners (Brevo + adjuntos
 
 ```json
 "Partners": {
-  "meta": { "title": "Become a Kódi partner", "description": "Register your business as a Kódi partner and reach students across the country." },
+  "meta": { "title": "Become a Kodi partner", "description": "Register your business as a Kodi partner and reach students across the country." },
   "header": { "title": "Register your business", "subtitle": "Fill the form and our team will contact you to activate you." },
   "sections": {
     "business": "Business details",
@@ -1669,7 +1669,7 @@ git commit -m "✨ feat: primitiva Field con a11y (label/hint/error)"
 **Files:**
 - Create: `src/app/[locale]/(kodi)/partners/registro/fields/inputs.tsx`
 
-- [ ] **Step 1: Crear `fields/inputs.tsx`** (todas las primitivas controladas; estilo Kódi; foco teal)
+- [ ] **Step 1: Crear `fields/inputs.tsx`** (todas las primitivas controladas; estilo Kodi; foco teal)
 
 ```tsx
 "use client";
@@ -1854,7 +1854,7 @@ Expected: sin errores.
 
 ```bash
 git add "src/app/[locale]/(kodi)/partners/registro/fields/inputs.tsx"
-git commit -m "✨ feat: primitivas de campo Kódi (input, select, radio, checkbox, file, date)"
+git commit -m "✨ feat: primitivas de campo Kodi (input, select, radio, checkbox, file, date)"
 ```
 
 ---

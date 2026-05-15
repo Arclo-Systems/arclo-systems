@@ -7,7 +7,7 @@ export function KodiHeader() {
       <div className="mx-auto flex w-full max-w-3xl items-center justify-between px-5 py-3 lg:px-8">
         <Image
           src="/assets/kodi/kodi.svg"
-          alt="Kódi"
+          alt="Kodi"
           width={1206}
           height={391}
           priority

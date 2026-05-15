@@ -1,4 +1,4 @@
-# Diseño: Formulario público de registro de partners (Kódi)
+# Diseño: Formulario público de registro de partners (Kodi)
 
 **Fecha:** 2026-05-15
 **Estado:** Aprobado por el usuario (pendiente revisión del spec escrito)
@@ -8,7 +8,7 @@
 
 ## 1. Objetivo
 
-Página pública (sin login, móvil + escritorio) donde un negocio se registra como partner de Kódi. El equipo Kódi recibe la información por correo y el negocio recibe una confirmación automática. Es una superficie de marca Kódi alojada dentro del repo `arclo`, sin afectar el sitio Arclo.
+Página pública (sin login, móvil + escritorio) donde un negocio se registra como partner de Kodi. El equipo Kodi recibe la información por correo y el negocio recibe una confirmación automática. Es una superficie de marca Kodi alojada dentro del repo `arclo`, sin afectar el sitio Arclo.
 
 ## 2. Decisiones cerradas
 
@@ -17,8 +17,8 @@ Página pública (sin login, móvil + escritorio) donde un negocio se registra c
 | Scope | Solo formulario (sin landing, sin hero/FAQ/stats blocks) |
 | Backend | Server action + Brevo (mismo patrón que `contact.ts`); archivos como adjuntos |
 | Idioma | Bilingüe ES/EN vía next-intl (namespace `Partners`) |
-| Marca | Tokens Kódi en OKLCH, scoped al route group `(kodi)`; Dongle + Poppins |
-| Fondo | Solo personajes Kódi custom, calmado, estático, baja opacidad |
+| Marca | Tokens Kodi en OKLCH, scoped al route group `(kodi)`; Dongle + Poppins |
+| Fondo | Solo personajes Kodi custom, calmado, estático, baja opacidad |
 | Shell | Refactor a route groups `(site)` / `(kodi)` |
 | Validación | React Hook Form + Zod (esquema compartido cliente/servidor) |
 | Cantones | Lista GAM de 30 (ver §9), marcada para verificación previa a lanzamiento |
@@ -42,8 +42,8 @@ src/app/
       terms/page.tsx               (movido)
       privacy/page.tsx             (movido)
     (kodi)/
-      layout.tsx                   (shell Kódi: header banda teal + logo + LanguageSwitcher; carga fuentes y tokens Kódi; KodiBackdrop; footer slim)
-      kodi.css                     (tokens Kódi scoped, importado solo aquí)
+      layout.tsx                   (shell Kodi: header banda teal + logo + LanguageSwitcher; carga fuentes y tokens Kodi; KodiBackdrop; footer slim)
+      kodi.css                     (tokens Kodi scoped, importado solo aquí)
       partners/
         registro/
           page.tsx                 (metadata propia + render del formulario)
@@ -51,7 +51,7 @@ src/app/
           schema.ts
           data.ts
           sections/                (un componente por sección)
-          fields/                  (primitivas Radix + Tailwind con marca Kódi)
+          fields/                  (primitivas Radix + Tailwind con marca Kodi)
 ```
 
 - Los route groups `(site)` y `(kodi)` **no cambian las URLs**. Home sigue en `/[locale]`, terms en `/[locale]/terms`, el form en `/[locale]/partners/registro` (next-intl con prefijo de locale: `/es/...` y `/en/...`).
@@ -59,7 +59,7 @@ src/app/
 - `(kodi)` no usa `Navbar`, `BackgroundEffect` ni `PagePreloader` de Arclo.
 - `[locale]/layout.tsx` mantiene `hasLocale`/`notFound`/`getMessages`/`NextIntlClientProvider` (i18n compartido).
 
-## 4. Sistema de marca Kódi
+## 4. Sistema de marca Kodi
 
 Light-only (consistente con el host, que fuerza `colorScheme: light`). Tokens scoped vía selector en `kodi.css` (ej. `.kodi-scope { --... }` aplicado al contenedor raíz del layout `(kodi)`), sin tocar los tokens globales de Arclo.
 
@@ -88,8 +88,8 @@ Escala neutral: tomar la escala neutral del PRD, convertir a OKLCH y tintar leve
 
 ## 5. Shell `(kodi)`
 
-- **Header:** banda con fondo teal Kódi `#408D99`, alto compacto. `kodi.svg` a la izquierda (alto ~28–32px, ratio ~3:1, color blanco original que contrasta sobre el teal), `LanguageSwitcher` reutilizado a la derecha (adaptado a contraste sobre teal). Sticky opcional, sin sombra dura.
-- **Footer slim:** una sola línea con © Kódi + año. No hay páginas legales propias de Kódi en este repo, así que no lleva enlaces legales. No es el footer de Arclo.
+- **Header:** banda con fondo teal Kodi `#408D99`, alto compacto. `kodi.svg` a la izquierda (alto ~28–32px, ratio ~3:1, color blanco original que contrasta sobre el teal), `LanguageSwitcher` reutilizado a la derecha (adaptado a contraste sobre teal). Sticky opcional, sin sombra dura.
+- **Footer slim:** una sola línea con © Kodi + año. No hay páginas legales propias de Kodi en este repo, así que no lleva enlaces legales. No es el footer de Arclo.
 - **KodiBackdrop:** ver §12.
 - **Metadata:** `partners/registro/page.tsx` exporta su propio `generateMetadata` (title/description bilingüe desde `Partners`), `metadataBase` propio, indexable. No hereda OG de Arclo.
 
@@ -101,7 +101,7 @@ Client component `PartnerForm` con **React Hook Form + Zod** (`@hookform/resolve
 - `data.ts`: 20 categorías `{ value, es, en }`, 31 cantones GAM (string, nombre propio igual en ambos idiomas), constantes (`MAX_LOGO_BYTES = 2_000_000`, `MAX_PHOTO_BYTES = 5_000_000`, `LOGO_MIN_PX = 400`, longitudes, mín/máx fecha).
 - `partner-form.tsx`: orquestador (RHF, `useFieldArray` para sucursales, estado submit, `AnimatePresence`).
 - `sections/`: `business-section`, `branches-section`, `contact-section`, `coupon-section`, `media-section`, `confirmation-section`.
-- `fields/`: primitivas Radix + Tailwind marca Kódi: `field` (wrapper label + ayuda + error con `aria-describedby`/`aria-invalid`), `text-input`, `textarea-counter`, `select`, `radio-group`, `checkbox-group`, `file-upload`, `date-input`.
+- `fields/`: primitivas Radix + Tailwind marca Kodi: `field` (wrapper label + ayuda + error con `aria-describedby`/`aria-invalid`), `text-input`, `textarea-counter`, `select`, `radio-group`, `checkbox-group`, `file-upload`, `date-input`.
 
 **Lógica condicional:**
 
@@ -188,7 +188,7 @@ En cliente, RHF valida con el resolver Zod; en submit válido construye un `Form
 1. Recibe ese `FormData` (campos escalares + `File` de logo y foto).
 2. Revalida campos con el esquema Zod compartido; valida archivos (tipo, tamaño, y para PNG dimensiones mín) con el helper compartido. Si falla → `{ success: false, error }` sin enviar nada.
 3. Anti-spam: campo honeypot oculto; si viene lleno → responder éxito falso sin enviar.
-4. Email 1 al equipo Kódi (`PARTNER_RECIPIENT`, env nuevo): HTML formateado con todos los campos (escapados) + **logo y foto como adjuntos** (base64). Total adjuntos ≤ ~7MB (2MB + 5MB), bajo el límite Brevo.
+4. Email 1 al equipo Kodi (`PARTNER_RECIPIENT`, env nuevo): HTML formateado con todos los campos (escapados) + **logo y foto como adjuntos** (base64). Total adjuntos ≤ ~7MB (2MB + 5MB), bajo el límite Brevo.
 5. Email 2 al partner (correo de contacto): confirmación automática en el locale enviado, con el texto del mes gratis y los próximos pasos.
 6. Retorna `{ success: true }` o `{ success: false, error }`. El form muestra estado sin perder lo escrito si falla.
 
@@ -200,7 +200,7 @@ Env (no commiteado): reutiliza `BREVO_API_KEY`, `BREVO_SENDER_EMAIL` (ya usados 
 
 - **idle:** formulario editable.
 - **submitting:** botón con spinner, campos deshabilitados, `aria-busy`.
-- **success:** pantalla de éxito Kódi (ilustración de `public/assets/kodi`, mensaje cálido voseo, qué sigue: "te contactamos pronto"). Reemplaza el form.
+- **success:** pantalla de éxito Kodi (ilustración de `public/assets/kodi`, mensaje cálido voseo, qué sigue: "te contactamos pronto"). Reemplaza el form.
 - **error:** banner de error inline (no destruye datos), botón reintentar. Errores de validación: por campo, foco al primer inválido al intentar enviar.
 
 ## 12. KodiBackdrop (fondo de personajes, calmado)
@@ -230,7 +230,7 @@ Componente `src/components/kodi/kodi-backdrop.tsx`, renderizado en `(kodi)/layou
 
 - npm: `react-hook-form`, `zod`, `@hookform/resolvers`.
 - Fuentes: `Poppins` y `Dongle` vía `next/font/google` (ambas en Google Fonts).
-- Env: `PARTNER_RECIPIENT` (correo del equipo Kódi). Reutiliza `BREVO_API_KEY` y `BREVO_SENDER_EMAIL`.
+- Env: `PARTNER_RECIPIENT` (correo del equipo Kodi). Reutiliza `BREVO_API_KEY` y `BREVO_SENDER_EMAIL`.
 
 ## 15. Mapa de archivos
 
@@ -260,7 +260,7 @@ Componente `src/components/kodi/kodi-backdrop.tsx`, renderizado en `(kodi)/layou
 
 ## 16. Fuera de scope
 
-Persistencia en base de datos, panel de partners, canje/gestión de cupones, analytics de redención, dark mode en `(kodi)`, el resto de la app Kódi, unificación de `contact.ts`/`newsletter.ts` con `email.ts`, bloques/componentes de React Bits Pro.
+Persistencia en base de datos, panel de partners, canje/gestión de cupones, analytics de redención, dark mode en `(kodi)`, el resto de la app Kodi, unificación de `contact.ts`/`newsletter.ts` con `email.ts`, bloques/componentes de React Bits Pro.
 
 ## 17. Riesgos / ítems a verificar
 

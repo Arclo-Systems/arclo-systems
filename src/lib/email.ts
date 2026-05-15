@@ -33,7 +33,7 @@ export async function sendBrevoEmail(
         "api-key": apiKey,
       },
       body: JSON.stringify({
-        sender: { name: "Kódi", email: senderEmail },
+        sender: { name: "Kodi", email: senderEmail },
         to: [input.to],
         ...(input.replyTo ? { replyTo: input.replyTo } : {}),
         subject: input.subject,

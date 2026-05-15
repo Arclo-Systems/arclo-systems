@@ -131,18 +131,18 @@ export async function submitPartnerRegistration(
     <h2>¡Recibimos tu registro, ${escapeHtml(d.business.name)}!</h2>
     <p>Entendemos que el primer mes es completamente gratuito y sin compromiso posterior. Al finalizar recibirás un reporte de resultados.</p>
     <p>Nuestro equipo te contactará pronto al WhatsApp ${escapeHtml(d.contact.whatsapp)}.</p>
-    <p>— Equipo Kódi</p>
+    <p>— Equipo Kodi</p>
   `;
   const confirmEn = `
     <h2>We got your registration, ${escapeHtml(d.business.name)}!</h2>
     <p>You understand the first month is completely free with no further commitment. At the end you will receive a results report.</p>
     <p>Our team will contact you soon at WhatsApp ${escapeHtml(d.contact.whatsapp)}.</p>
-    <p>— Kódi Team</p>
+    <p>— Kodi Team</p>
   `;
 
   await sendBrevoEmail({
     to: { email: d.contact.email, name: d.contact.fullName },
-    subject: locale === "en" ? "Kódi — registration received" : "Kódi — registro recibido",
+    subject: locale === "en" ? "Kodi — registration received" : "Kodi — registro recibido",
     htmlContent: locale === "en" ? confirmEn : confirmEs,
   });
 
