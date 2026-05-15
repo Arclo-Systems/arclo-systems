@@ -4,8 +4,6 @@ import {
   HANDLE_RE,
   NAME_RE,
   WHATSAPP_RE,
-  MIN_DEADLINE_DAYS,
-  MAX_DEADLINE_DAYS,
   BUSINESS_CATEGORIES,
   GAM_CANTONS,
 } from "./data";
@@ -26,7 +24,11 @@ const optionalHandle = z
 const categoryValues = BUSINESS_CATEGORIES.map((c) => c.value);
 
 const businessSchema = z.object({
-  name: z.string().trim().min(1).max(LIMITS.businessName),
+  name: z
+    .string()
+    .trim()
+    .min(1, { message: "required" })
+    .max(LIMITS.businessName, { message: "max" }),
   category: z.string().refine((v) => categoryValues.includes(v), {
     message: "invalid_category",
   }),
@@ -37,22 +39,43 @@ const businessSchema = z.object({
   instagram: optionalHandle,
   facebook: optionalUrl,
   tiktok: optionalHandle,
-  description: z.string().trim().min(1).max(LIMITS.businessDescription),
+  description: z
+    .string()
+    .trim()
+    .min(1, { message: "required" })
+    .max(LIMITS.businessDescription, { message: "max" }),
   hasMultipleBranches: z.enum(["yes", "no"]),
 });
 
 const branchSchema = z.object({
-  name: z.string().trim().min(1).max(LIMITS.branchName),
+  name: z
+    .string()
+    .trim()
+    .min(1, { message: "required" })
+    .max(LIMITS.branchName, { message: "max" }),
   canton: z.string().refine((v) => GAM_CANTONS.includes(v), {
     message: "invalid_canton",
   }),
-  address: z.string().trim().max(200).optional().default(""),
+  address: z
+    .string()
+    .trim()
+    .max(200, { message: "max" })
+    .optional()
+    .default(""),
 });
 
 const contactSchema = z.object({
-  fullName: z.string().trim().min(1).regex(NAME_RE, { message: "name_letters_only" }),
-  role: z.string().trim().min(1).max(80),
-  email: z.string().trim().email(),
+  fullName: z
+    .string()
+    .trim()
+    .min(1, { message: "required" })
+    .regex(NAME_RE, { message: "name_letters_only" }),
+  role: z
+    .string()
+    .trim()
+    .min(1, { message: "required" })
+    .max(80, { message: "max" }),
+  email: z.string().trim().email({ message: "invalid_email" }),
   whatsapp: z
     .string()
     .trim()
@@ -61,32 +84,26 @@ const contactSchema = z.object({
 });
 
 const couponSchema = z.object({
+  formats: z
+    .array(z.enum(["cupon", "video", "banner"]))
+    .min(1, { message: "required" }),
   discountType: z.enum(["percentage", "fixed"]),
-  discountValue: z
-    .number({ invalid_type_error: "required" })
-    .refine(Number.isFinite, { message: "required" }),
-  description: z.string().trim().min(1).max(LIMITS.couponDescription),
-  quantity: z
-    .number({ invalid_type_error: "required" })
-    .int()
-    .min(LIMITS.couponQtyMin)
-    .max(LIMITS.couponQtyMax),
-  deadline: z.string().refine((v) => /^\d{4}-\d{2}-\d{2}$/.test(v), {
-    message: "required",
-  }),
-  branchesScope: z.array(z.string().max(LIMITS.branchName)).default([]),
-  conditions: z.string().trim().max(LIMITS.couponConditions).optional().default(""),
+  discountValue: z.number({ invalid_type_error: "required" }),
+  description: z
+    .string()
+    .trim()
+    .max(LIMITS.couponDescription, { message: "max" }),
+  quantity: z.number({ invalid_type_error: "required" }),
+  branchesScope: z
+    .array(z.string().max(LIMITS.branchName, { message: "max" }))
+    .default([]),
+  conditions: z
+    .string()
+    .trim()
+    .max(LIMITS.couponConditions, { message: "max" })
+    .optional()
+    .default(""),
 });
-
-function deadlineWindow(): { min: Date; max: Date } {
-  const min = new Date();
-  min.setUTCHours(0, 0, 0, 0);
-  min.setUTCDate(min.getUTCDate() + MIN_DEADLINE_DAYS - 1);
-  const max = new Date();
-  max.setUTCHours(0, 0, 0, 0);
-  max.setUTCDate(max.getUTCDate() + MAX_DEADLINE_DAYS + 1);
-  return { min, max };
-}
 
 export const partnerSchema = z
   .object({
@@ -103,6 +120,7 @@ export const partnerSchema = z
   })
   .superRefine((data, ctx) => {
     const multi = data.business.hasMultipleBranches === "yes";
+    const wantsCoupon = data.coupon.formats.includes("cupon");
 
     if (multi) {
       if (data.branches.length < LIMITS.branchesMin) {
@@ -111,13 +129,17 @@ export const partnerSchema = z
       if (data.branches.length > LIMITS.branchesMax) {
         ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["branches"], message: "branches_max" });
       }
-      if (data.coupon.branchesScope.length === 0) {
-        ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["coupon", "branchesScope"], message: "scope_required" });
-      }
     }
 
-    const { discountType, discountValue } = data.coupon;
-    if (discountType === "percentage") {
+    // El cupón y todo su detalle solo se exige si el partner eligió el
+    // formato "cupon".
+    if (!wantsCoupon) return;
+
+    const { discountType, discountValue, description, quantity } = data.coupon;
+
+    if (!Number.isFinite(discountValue)) {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["coupon", "discountValue"], message: "required" });
+    } else if (discountType === "percentage") {
       if (discountValue < LIMITS.percentMin || discountValue > LIMITS.percentMax) {
         ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["coupon", "discountValue"], message: "percent_range" });
       }
@@ -125,12 +147,16 @@ export const partnerSchema = z
       ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["coupon", "discountValue"], message: "fixed_min" });
     }
 
-    if (/^\d{4}-\d{2}-\d{2}$/.test(data.coupon.deadline)) {
-      const d = new Date(`${data.coupon.deadline}T00:00:00.000Z`);
-      const { min, max } = deadlineWindow();
-      if (d < min || d > max) {
-        ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["coupon", "deadline"], message: "deadline_window" });
-      }
+    if (description.trim().length === 0) {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["coupon", "description"], message: "required" });
+    }
+
+    if (!Number.isInteger(quantity) || quantity < LIMITS.couponQtyMin || quantity > LIMITS.couponQtyMax) {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["coupon", "quantity"], message: "quantity_range" });
+    }
+
+    if (multi && data.coupon.branchesScope.length === 0) {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["coupon", "branchesScope"], message: "scope_required" });
     }
   });
 

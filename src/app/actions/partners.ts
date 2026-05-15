@@ -24,17 +24,27 @@ export async function submitPartnerRegistration(
   formData: FormData,
 ): Promise<SubmitResult> {
   const raw = formData.get("payload");
-  if (typeof raw !== "string") return { success: false, error: "validation" };
+  if (typeof raw !== "string") {
+    console.error("[partners] payload ausente en FormData");
+    return { success: false, error: "validation" };
+  }
 
   let parsedJson: unknown;
   try {
     parsedJson = JSON.parse(raw);
   } catch {
+    console.error("[partners] payload no es JSON válido");
     return { success: false, error: "validation" };
   }
 
   const parsed = partnerSchema.safeParse(parsedJson);
-  if (!parsed.success) return { success: false, error: "validation" };
+  if (!parsed.success) {
+    console.error(
+      "[partners] validación Zod falló:",
+      JSON.stringify(parsed.error.flatten(), null, 2),
+    );
+    return { success: false, error: "validation" };
+  }
 
   const honeypotOk = parsed.data.honeypot === "";
   if (!honeypotOk) return { success: true };
@@ -47,17 +57,31 @@ export async function submitPartnerRegistration(
     maxBytes: MAX_LOGO_BYTES,
     required: true,
   });
-  if (!logoCheck.ok) return { success: false, error: "validation" };
+  if (!logoCheck.ok) {
+    console.error("[partners] logo inválido:", logoCheck.error);
+    return { success: false, error: "validation" };
+  }
 
   const photoCheck = validateUpload(photo instanceof File ? photo : null, {
     accept: ["image/jpeg", "image/png"],
     maxBytes: MAX_PHOTO_BYTES,
     required: false,
   });
-  if (!photoCheck.ok) return { success: false, error: "validation" };
+  if (!photoCheck.ok) {
+    console.error("[partners] foto inválida:", photoCheck.error);
+    return { success: false, error: "validation" };
+  }
 
-  const recipient = process.env.PARTNER_RECIPIENT;
+  // PARTNER_RECIPIENT es opcional: si no está, cae a CONTACT_RECIPIENT
+  // (que ya usa el form de contacto), así funciona sin env nueva.
+  const recipient =
+    process.env.PARTNER_RECIPIENT ?? process.env.CONTACT_RECIPIENT;
   if (!recipient || !process.env.BREVO_API_KEY || !process.env.BREVO_SENDER_EMAIL) {
+    console.error("[partners] env faltante:", {
+      recipient: !!recipient,
+      BREVO_API_KEY: !!process.env.BREVO_API_KEY,
+      BREVO_SENDER_EMAIL: !!process.env.BREVO_SENDER_EMAIL,
+    });
     return { success: false, error: "server_config" };
   }
 
@@ -65,86 +89,169 @@ export async function submitPartnerRegistration(
   const localeRaw = formData.get("locale");
   const locale = localeRaw === "en" ? "en" : "es";
 
-  const attachments: BrevoAttachment[] = [];
+  let attachments: BrevoAttachment[];
   try {
+    const tasks: Promise<BrevoAttachment>[] = [];
     if (logo instanceof File && logo.size > 0) {
-      attachments.push(await fileToAttachment(logo, "logo"));
+      tasks.push(fileToAttachment(logo, "logo"));
     }
     if (photo instanceof File && photo.size > 0) {
-      attachments.push(await fileToAttachment(photo, "foto"));
+      tasks.push(fileToAttachment(photo, "foto"));
     }
-  } catch {
+    attachments = await Promise.all(tasks);
+  } catch (e) {
+    console.error("[partners] error leyendo archivos adjuntos:", e);
     return { success: false, error: "validation" };
   }
 
-  const branchesHtml =
+  const FORMAT_LABEL: Record<string, string> = {
+    cupon: "Cupón de descuento",
+    video: "Video patrocinado",
+    banner: "Banner",
+  };
+  const DISCOUNT_LABEL: Record<string, string> = {
+    percentage: "Porcentaje (%)",
+    fixed: "Monto fijo (₡)",
+  };
+  const wantsCoupon = d.coupon.formats.includes("cupon");
+
+  const row = (label: string, value: string) =>
+    `<tr><td style="padding:9px 16px;border-bottom:1px solid #eaf0f1;font-size:13px;color:#5b6b6e;width:36%;vertical-align:top;">${escapeHtml(
+      label,
+    )}</td><td style="padding:9px 16px;border-bottom:1px solid #eaf0f1;font-size:14px;color:#202b2d;font-weight:600;vertical-align:top;">${value}</td></tr>`;
+  const sectionHead = (title: string) =>
+    `<tr><td colspan="2" style="padding:20px 16px 6px;font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:#3a7d88;font-weight:700;background:#f3f8f9;">${escapeHtml(
+      title,
+    )}</td></tr>`;
+
+  const branchesValue =
     d.business.hasMultipleBranches === "yes"
       ? d.branches
           .map(
             (b) =>
-              `<li>${escapeHtml(b.name)} — ${escapeHtml(b.canton)}${
+              `${escapeHtml(b.name)} — ${escapeHtml(b.canton)}${
                 b.address ? ` (${escapeHtml(b.address)})` : ""
-              }</li>`,
+              }`,
           )
-          .join("")
-      : "<li>Una sola ubicación</li>";
+          .join("<br>")
+      : "Una sola ubicación";
+
+  const formatsValue = d.coupon.formats
+    .map((f) => FORMAT_LABEL[f] ?? f)
+    .join(", ");
+
+  const couponRows = wantsCoupon
+    ? row(
+        "Tipo de descuento",
+        escapeHtml(
+          DISCOUNT_LABEL[d.coupon.discountType] ?? d.coupon.discountType,
+        ),
+      ) +
+      row(
+        "Valor",
+        escapeHtml(
+          d.coupon.discountType === "percentage"
+            ? `${d.coupon.discountValue} %`
+            : `₡ ${d.coupon.discountValue}`,
+        ),
+      ) +
+      row("Descripción del cupón", escapeHtml(d.coupon.description || "—")) +
+      row("Cantidad", escapeHtml(String(d.coupon.quantity))) +
+      row(
+        "Aplica en",
+        escapeHtml(
+          d.coupon.branchesScope.length
+            ? d.coupon.branchesScope.join(", ")
+            : "Todas / única",
+        ),
+      ) +
+      row("Condiciones", escapeHtml(d.coupon.conditions || "—"))
+    : "";
 
   const teamHtml = `
-    <h2>Nuevo registro de partner</h2>
-    <h3>Negocio</h3>
-    <p><strong>Nombre:</strong> ${escapeHtml(d.business.name)}</p>
-    <p><strong>Categoría:</strong> ${escapeHtml(d.business.category)}</p>
-    <p><strong>Cantón:</strong> ${escapeHtml(d.business.canton)}</p>
-    <p><strong>Sitio:</strong> ${escapeHtml(d.business.website || "-")}</p>
-    <p><strong>Instagram:</strong> ${escapeHtml(d.business.instagram || "-")}</p>
-    <p><strong>Facebook:</strong> ${escapeHtml(d.business.facebook || "-")}</p>
-    <p><strong>TikTok:</strong> ${escapeHtml(d.business.tiktok || "-")}</p>
-    <p><strong>Descripción:</strong> ${escapeHtml(d.business.description)}</p>
-    <h3>Sucursales</h3><ul>${branchesHtml}</ul>
-    <h3>Contacto</h3>
-    <p><strong>Nombre:</strong> ${escapeHtml(d.contact.fullName)}</p>
-    <p><strong>Cargo:</strong> ${escapeHtml(d.contact.role)}</p>
-    <p><strong>Email:</strong> ${escapeHtml(d.contact.email)}</p>
-    <p><strong>WhatsApp:</strong> ${escapeHtml(d.contact.whatsapp)}</p>
-    <h3>Cupón</h3>
-    <p><strong>Tipo:</strong> ${escapeHtml(d.coupon.discountType)}</p>
-    <p><strong>Valor:</strong> ${escapeHtml(String(d.coupon.discountValue))}</p>
-    <p><strong>Descripción:</strong> ${escapeHtml(d.coupon.description)}</p>
-    <p><strong>Cantidad:</strong> ${escapeHtml(String(d.coupon.quantity))}</p>
-    <p><strong>Fecha límite:</strong> ${escapeHtml(d.coupon.deadline)}</p>
-    <p><strong>Aplica en:</strong> ${escapeHtml(
-      d.coupon.branchesScope.length ? d.coupon.branchesScope.join(", ") : "Todas / única",
-    )}</p>
-    <p><strong>Condiciones:</strong> ${escapeHtml(d.coupon.conditions || "-")}</p>
-  `;
+  <div style="background:#eef4f5;padding:24px 0;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;">
+    <table role="presentation" width="600" cellpadding="0" cellspacing="0" align="center" style="width:600px;max-width:100%;margin:0 auto;background:#ffffff;border-radius:14px;overflow:hidden;border:1px solid #e3eced;">
+      <tr><td style="background:#408D99;padding:20px 24px;">
+        <div style="color:#ffffff;font-size:18px;font-weight:700;">Kodi · Nuevo partner</div>
+        <div style="color:#d6ebee;font-size:13px;margin-top:2px;">${escapeHtml(
+          d.business.name,
+        )}</div>
+      </td></tr>
+      <tr><td style="padding:8px 8px 20px;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+          ${sectionHead("Negocio")}
+          ${row("Nombre comercial", escapeHtml(d.business.name))}
+          ${row("Categoría", escapeHtml(d.business.category))}
+          ${row("Zona / cantón", escapeHtml(d.business.canton))}
+          ${row("Sitio web", escapeHtml(d.business.website || "—"))}
+          ${row(
+            "Instagram",
+            escapeHtml(
+              d.business.instagram ? `@${d.business.instagram}` : "—",
+            ),
+          )}
+          ${row("Facebook", escapeHtml(d.business.facebook || "—"))}
+          ${row(
+            "TikTok",
+            escapeHtml(d.business.tiktok ? `@${d.business.tiktok}` : "—"),
+          )}
+          ${row("Descripción", escapeHtml(d.business.description))}
+          ${sectionHead("Sucursales")}
+          ${row("Ubicaciones", branchesValue)}
+          ${sectionHead("Contacto")}
+          ${row("Nombre", escapeHtml(d.contact.fullName))}
+          ${row("Cargo", escapeHtml(d.contact.role))}
+          ${row("Email", escapeHtml(d.contact.email))}
+          ${row("WhatsApp", escapeHtml(`+506 ${d.contact.whatsapp}`))}
+          ${sectionHead("Publicidad")}
+          ${row("Formatos", escapeHtml(formatsValue))}
+          ${couponRows}
+        </table>
+      </td></tr>
+      <tr><td style="background:#f3f8f9;padding:14px 24px;color:#7a8a8d;font-size:11px;">Registro automático del formulario de partners de Kodi.</td></tr>
+    </table>
+  </div>`;
 
   const teamRes = await sendBrevoEmail({
     to: { email: recipient },
     replyTo: { email: d.contact.email, name: d.contact.fullName },
+    senderName: "Kodi Partners",
     subject: `Nuevo partner: ${d.business.name}`,
     htmlContent: teamHtml,
     attachments,
+    headers: { "X-Priority": "1", Importance: "high" },
   });
-  if (!teamRes.ok) return { success: false, error: "send_failed" };
+  if (!teamRes.ok) {
+    console.error("[partners] Brevo no aceptó el email al equipo");
+    return { success: false, error: "send_failed" };
+  }
 
   const confirmEs = `
     <h2>¡Recibimos tu registro, ${escapeHtml(d.business.name)}!</h2>
     <p>Entendemos que el primer mes es completamente gratuito y sin compromiso posterior. Al finalizar recibirás un reporte de resultados.</p>
     <p>Nuestro equipo te contactará pronto al WhatsApp ${escapeHtml(d.contact.whatsapp)}.</p>
-    <p>— Equipo Kódi</p>
+    <p>— Equipo Kodi</p>
   `;
   const confirmEn = `
     <h2>We got your registration, ${escapeHtml(d.business.name)}!</h2>
     <p>You understand the first month is completely free with no further commitment. At the end you will receive a results report.</p>
     <p>Our team will contact you soon at WhatsApp ${escapeHtml(d.contact.whatsapp)}.</p>
-    <p>— Kódi Team</p>
+    <p>— Kodi Team</p>
   `;
 
-  await sendBrevoEmail({
+  const confirmRes = await sendBrevoEmail({
     to: { email: d.contact.email, name: d.contact.fullName },
-    subject: locale === "en" ? "Kódi — registration received" : "Kódi — registro recibido",
+    subject:
+      locale === "en"
+        ? "Kodi — registration received"
+        : "Kodi — registro recibido",
     htmlContent: locale === "en" ? confirmEn : confirmEs,
   });
+  if (!confirmRes.ok) {
+    console.error(
+      "[partners] email de confirmación al partner falló (no fatal, el equipo sí recibió)",
+    );
+  }
 
   return { success: true };
 }

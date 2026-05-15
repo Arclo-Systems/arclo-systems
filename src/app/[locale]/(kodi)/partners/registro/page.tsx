@@ -2,19 +2,41 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { PartnerForm } from "./partner-form";
 
+const BASE_URL = "https://arclosystems.com";
+
 type Props = { params: Promise<{ locale: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Partners" });
+  const title = t("meta.title");
+  const description = t("meta.description");
+  const url = `${BASE_URL}/${locale}/partners/registro`;
+
   return {
-    title: t("meta.title"),
-    description: t("meta.description"),
+    title,
+    description,
+    metadataBase: new URL(BASE_URL),
     alternates: {
+      canonical: url,
       languages: {
-        es: "https://arclosystems.com/es/partners/registro",
-        en: "https://arclosystems.com/en/partners/registro",
+        es: `${BASE_URL}/es/partners/registro`,
+        en: `${BASE_URL}/en/partners/registro`,
+        "x-default": `${BASE_URL}/es/partners/registro`,
       },
+    },
+    openGraph: {
+      title,
+      description,
+      url,
+      siteName: "Kodi",
+      locale: locale === "es" ? "es_CR" : "en_US",
+      type: "website",
+    },
+    twitter: {
+      card: "summary",
+      title,
+      description,
     },
   };
 }

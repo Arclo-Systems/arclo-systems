@@ -1,35 +1,30 @@
 import Image from "next/image";
 
+// Determinístico, sin breakpoints (los px fijos fallaban por el escalado
+// de Windows: screenshot px != CSS px). El ANCHO de Koko = el gutter real
+// que queda al lado de la columna del form (672px) menos un gap. Si no
+// hay gutter, el clamp lo lleva a 0 y desaparece solo. Nunca puede ser
+// más ancho que el espacio libre, así que JAMÁS se monta sobre el form
+// ni se vuelve gigante; escala suave de chico (laptop) a grande (desktop).
 export function KodiBackdrop() {
   return (
-    <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-      <div
-        className="absolute inset-0"
+    <div
+      aria-hidden
+      className="pointer-events-none fixed inset-0 -z-10 overflow-hidden"
+    >
+      <Image
+        src="/assets/kodi/Koko.svg"
+        alt=""
+        width={150}
+        height={311}
+        loading="lazy"
         style={{
-          background:
-            "radial-gradient(60% 50% at 80% 0%, oklch(0.62 0.075 205 / 0.06), transparent), radial-gradient(50% 40% at 10% 100%, oklch(0.79 0.13 85 / 0.05), transparent)",
+          right: "16px",
+          top: "96px",
+          width: "clamp(0px, calc((100vw - 696px) / 2 - 16px), 360px)",
+          height: "auto",
         }}
-      />
-      <Image
-        src="/assets/kodi/profe_marta.svg"
-        alt=""
-        width={520}
-        height={520}
-        className="absolute -right-24 top-24 w-[420px] opacity-[0.06] grayscale sm:w-[520px]"
-      />
-      <Image
-        src="/assets/kodi/Llama.svg"
-        alt=""
-        width={480}
-        height={480}
-        className="absolute -left-28 bottom-[-60px] w-[380px] opacity-[0.05] grayscale sm:w-[480px]"
-      />
-      <Image
-        src="/assets/kodi/kolones.svg"
-        alt=""
-        width={120}
-        height={120}
-        className="absolute left-[12%] top-[18%] w-20 opacity-[0.05]"
+        className="absolute select-none opacity-[0.16] grayscale"
       />
     </div>
   );

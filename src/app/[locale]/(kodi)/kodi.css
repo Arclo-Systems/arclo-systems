@@ -1,8 +1,13 @@
-.kodi-scope {
+/* Tokens Kodi + remapeo de variables shadcn, en un solo bloque
+   AUTOSUFICIENTE. Se aplica al shell (el wrapper tiene "kodi-scope
+   kodi-theme") y también a cada <SelectContent className="kodi-theme">,
+   que Radix portalea a document.body fuera de .kodi-scope: por eso los
+   tokens crudos --kodi-* deben vivir aquí y no solo en .kodi-scope. */
+.kodi-theme {
   --kodi-surface: oklch(0.99 0.006 200);
   --kodi-surface-2: oklch(0.972 0.008 200);
-  --kodi-ink: oklch(0.26 0.04 40);
-  --kodi-ink-soft: oklch(0.46 0.03 40);
+  --kodi-ink: oklch(0.24 0.022 250);
+  --kodi-ink-soft: oklch(0.52 0.025 250);
   --kodi-teal: oklch(0.62 0.075 205);
   --kodi-teal-strong: oklch(0.55 0.085 205);
   --kodi-coral: oklch(0.72 0.15 30);
@@ -11,14 +16,37 @@
   --kodi-ring: oklch(0.62 0.075 205);
   --kodi-ease: cubic-bezier(0.23, 1, 0.32, 1);
 
+  --background: var(--kodi-surface);
+  --foreground: var(--kodi-ink);
+  --card: var(--kodi-surface);
+  --card-foreground: var(--kodi-ink);
+  --popover: var(--kodi-surface);
+  --popover-foreground: var(--kodi-ink);
+  --primary: var(--kodi-teal);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: var(--kodi-surface-2);
+  --secondary-foreground: var(--kodi-ink);
+  --muted: var(--kodi-surface-2);
+  --muted-foreground: var(--kodi-ink-soft);
+  --accent: var(--kodi-surface-2);
+  --accent-foreground: var(--kodi-ink);
+  --destructive: var(--kodi-coral);
+  --border: var(--kodi-border);
+  --input: var(--kodi-border);
+  --ring: var(--kodi-ring);
+}
+
+.kodi-scope {
+  /* stacking context propio: deja que el KodiBackdrop (fixed -z-10)
+     pinte sobre la superficie pero detrás del contenido, en vez de
+     quedar tapado por el fondo opaco del scope. */
+  position: relative;
+  isolation: isolate;
+
   background-color: var(--kodi-surface);
   color: var(--kodi-ink);
   font-family: var(--font-poppins), system-ui, sans-serif;
   min-height: 100dvh;
-}
-
-.kodi-scope .font-dongle {
-  font-family: var(--font-dongle), var(--font-poppins), sans-serif;
 }
 
 .kodi-scope ::selection {

@@ -1,13 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { partnerSchema } from "./schema";
 
-function isoInDays(days: number): string {
-  const d = new Date();
-  d.setUTCHours(0, 0, 0, 0);
-  d.setUTCDate(d.getUTCDate() + days);
-  return d.toISOString().slice(0, 10);
-}
-
 const base = {
   business: {
     name: "Soda La Esquina",
@@ -28,11 +21,11 @@ const base = {
     whatsapp: "88887777",
   },
   coupon: {
+    formats: ["cupon"] as const,
     discountType: "percentage" as const,
     discountValue: 20,
     description: "20% en cualquier plato",
     quantity: 50,
-    deadline: isoInDays(30),
     branchesScope: [],
     conditions: "",
   },
@@ -70,22 +63,6 @@ describe("partnerSchema", () => {
   });
   it("acepta monto fijo >= 500", () => {
     const v = { ...base, coupon: { ...base.coupon, discountType: "fixed", discountValue: 500 } };
-    expect(partnerSchema.safeParse(v).success).toBe(true);
-  });
-  it("rechaza fecha límite a menos de 15 días", () => {
-    const v = { ...base, coupon: { ...base.coupon, deadline: isoInDays(10) } };
-    expect(partnerSchema.safeParse(v).success).toBe(false);
-  });
-  it("rechaza fecha límite a más de 90 días", () => {
-    const v = { ...base, coupon: { ...base.coupon, deadline: isoInDays(120) } };
-    expect(partnerSchema.safeParse(v).success).toBe(false);
-  });
-  it("acepta fecha límite exactamente en 15 días", () => {
-    const v = { ...base, coupon: { ...base.coupon, deadline: isoInDays(15) } };
-    expect(partnerSchema.safeParse(v).success).toBe(true);
-  });
-  it("acepta fecha límite exactamente en 90 días", () => {
-    const v = { ...base, coupon: { ...base.coupon, deadline: isoInDays(90) } };
     expect(partnerSchema.safeParse(v).success).toBe(true);
   });
   it("rechaza cantidad de cupones fuera de 5-500", () => {
@@ -134,6 +111,32 @@ describe("partnerSchema", () => {
   });
   it("rechaza website con formato inválido", () => {
     const v = { ...base, business: { ...base.business, website: "no-es-url" } };
+    expect(partnerSchema.safeParse(v).success).toBe(false);
+  });
+  it("rechaza formatos de patrocinio vacíos", () => {
+    const v = { ...base, coupon: { ...base.coupon, formats: [] } };
+    expect(partnerSchema.safeParse(v).success).toBe(false);
+  });
+
+  it("no exige campos de cupón cuando 'cupon' no está en formats", () => {
+    const v = {
+      ...base,
+      coupon: {
+        ...base.coupon,
+        formats: ["video"],
+        discountValue: 0,
+        description: "",
+        quantity: 0,
+      },
+    };
+    expect(partnerSchema.safeParse(v).success).toBe(true);
+  });
+
+  it("exige campos de cupón cuando 'cupon' está en formats", () => {
+    const v = {
+      ...base,
+      coupon: { ...base.coupon, formats: ["cupon"], description: "" },
+    };
     expect(partnerSchema.safeParse(v).success).toBe(false);
   });
 });
