@@ -21,7 +21,7 @@ Página pública (sin login, móvil + escritorio) donde un negocio se registra c
 | Fondo | Solo personajes Kódi custom, calmado, estático, baja opacidad |
 | Shell | Refactor a route groups `(site)` / `(kodi)` |
 | Validación | React Hook Form + Zod (esquema compartido cliente/servidor) |
-| Cantones | Lista GAM de 31 (ver §9), marcada para verificación previa a lanzamiento |
+| Cantones | Lista GAM de 30 (ver §9), marcada para verificación previa a lanzamiento |
 | Logo | `kodi.svg` (trazo blanco, ratio ~3:1) sobre banda teal `#408D99` en el header |
 | React Bits Pro | No se usa ningún bloque ni componente nuevo (no aporta a un form-only calmado) |
 
@@ -170,14 +170,14 @@ Tarjetas repetibles, botón "+ Agregar sucursal", mín 2, máx 20. Primera sin e
 
 `value` estable (string en español, usado en el email); `es`/`en` para la etiqueta visible.
 
-## 9. Cantones GAM (31) ⚠️ verificar antes de lanzar
+## 9. Cantones GAM (30) ⚠️ verificar antes de lanzar
 
 **San José (13):** San José, Escazú, Desamparados, Aserrí, Mora, Goicoechea, Santa Ana, Alajuelita, Vázquez de Coronado, Tibás, Moravia, Montes de Oca, Curridabat.
 **Alajuela (3):** Alajuela, Atenas, Poás.
 **Cartago (5):** Cartago, Paraíso, La Unión, Oreamuno, El Guarco.
 **Heredia (9):** Heredia, Barva, Santo Domingo, Santa Bárbara, San Rafael, San Isidro, Belén, Flores, San Pablo.
 
-Nombre propio, idéntico ES/EN. El límite del GAM es difuso según la fuente; validar contra fuente oficial antes del lanzamiento (patrón ⚠️ del PRD).
+Total: 30 cantones (13 + 3 + 5 + 9). Nombre propio, idéntico ES/EN. El límite del GAM es difuso según la fuente y la cifra varía (a veces se cita 31); validar la lista exacta contra fuente oficial antes del lanzamiento (patrón ⚠️ del PRD).
 
 ## 10. Data flow (server action + Brevo)
 
@@ -264,7 +264,7 @@ Persistencia en base de datos, panel de partners, canje/gestión de cupones, ana
 
 ## 17. Riesgos / ítems a verificar
 
-- ⚠️ Lista GAM (31) a validar contra fuente oficial antes de lanzar.
+- ⚠️ Lista GAM (30 enumerados) a validar contra fuente oficial antes de lanzar; la cifra exacta del GAM varía según la fuente.
 - Logo en banda teal es el default; revisar si la marca entrega variante a color.
 - Transparencia/dimensiones de SVG no verificables de forma fiable en cliente: se valida tipo y, para PNG, dimensiones; transparencia se comunica como guía.
 - Límite de adjuntos Brevo: 2MB + 5MB queda bajo el tope; validar tamaño antes de enviar.
