@@ -8,7 +8,7 @@ const GlitterWarp = dynamic(() => import("@/components/glitter-warp"), {
 
 export function BackgroundEffect() {
   return (
-    <div className="fixed inset-0 -z-10">
+    <div className="fixed inset-0 -z-10 bg-white">
       <GlitterWarp
         speed={0.3}
         color="#171717"

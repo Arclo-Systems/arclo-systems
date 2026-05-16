@@ -72,11 +72,20 @@ const GlitterWarp: React.FC<GlitterWarpProps> = ({
     const actualWidth = rect.width;
     const actualHeight = rect.height;
 
-    const renderer = new THREE.WebGLRenderer({
-      antialias: true,
-      alpha: true,
-      powerPreference: "high-performance",
-    });
+    let renderer: THREE.WebGLRenderer;
+    try {
+      renderer = new THREE.WebGLRenderer({
+        antialias: true,
+        alpha: true,
+        powerPreference: "high-performance",
+      });
+    } catch (err) {
+      console.warn(
+        "GlitterWarp: no se pudo crear el contexto WebGL, se omite el fondo animado.",
+        err,
+      );
+      return;
+    }
     renderer.setClearColor(0x000000, 0);
 
     const pixelRatio = Math.min(window.devicePixelRatio, 2);
