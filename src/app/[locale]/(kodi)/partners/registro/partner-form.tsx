@@ -3,7 +3,7 @@
 import { useEffect, useState, useTransition } from "react";
 import { useForm, useFieldArray, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { MotionConfig } from "motion/react";
+import { MotionConfig, motion } from "motion/react";
 import { useTranslations, useLocale } from "next-intl";
 import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
@@ -195,6 +195,11 @@ export function PartnerForm() {
         {!mounted ? (
           <div className="min-h-[60vh]" aria-hidden />
         ) : (
+          <motion.div
+            initial={{ opacity: 0, y: 8, filter: "blur(4px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{ duration: 0.35, ease: [0.23, 1, 0.32, 1] }}
+          >
         <Form {...form}>
           <form
             noValidate
@@ -229,6 +234,7 @@ export function PartnerForm() {
             <SubmitBar pending={pending} submitError={submitError} />
           </form>
         </Form>
+          </motion.div>
         )}
       </div>
     </MotionConfig>
