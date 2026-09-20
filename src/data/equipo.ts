@@ -43,6 +43,6 @@ export const EQUIPO: readonly Socio[] = [
     roleKey: "member4Role",
     descKey: "member4Desc",
     foto: null,
-    linkedin: null,
+    linkedin: "https://www.linkedin.com/in/edgar-alvarado-9a1a67264/",
   },
 ];
