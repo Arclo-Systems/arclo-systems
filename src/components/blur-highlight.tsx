@@ -1,6 +1,12 @@
 "use client";
 
-import React, { useRef, useState, useMemo, useEffect, type CSSProperties } from "react";
+import React, {
+  useRef,
+  useState,
+  useMemo,
+  useSyncExternalStore,
+  type CSSProperties,
+} from "react";
 import { motion, useInView, type Transition } from "motion/react";
 import { cn } from "@/lib/utils";
 
@@ -53,6 +59,31 @@ export interface BlurHighlightProps {
 
   /** Additional class name */
   className?: string;
+
+  /** Rendered element: the headings of each section need to be real headings */
+  as?: keyof typeof MOTION_ELEMENTS;
+}
+
+const MOTION_ELEMENTS = {
+  div: motion.div,
+  h2: motion.h2,
+} as const;
+
+const CONSULTA_MOVIMIENTO_REDUCIDO = "(prefers-reduced-motion: reduce)";
+
+function suscribirMovimientoReducido(alCambiar: () => void) {
+  const mq = window.matchMedia(CONSULTA_MOVIMIENTO_REDUCIDO);
+  mq.addEventListener("change", alCambiar);
+  return () => mq.removeEventListener("change", alCambiar);
+}
+
+function leerMovimientoReducido() {
+  return window.matchMedia(CONSULTA_MOVIMIENTO_REDUCIDO).matches;
+}
+
+// En el servidor no hay media query: el primer pintado asume movimiento normal.
+function leerMovimientoReducidoEnServidor() {
+  return false;
 }
 
 export interface BlurHighlightRef {
@@ -132,24 +163,22 @@ export const BlurHighlight = React.forwardRef<
         amount: 0.5,
       },
       className,
+      as = "div",
     },
     ref,
   ) => {
-    const containerRef = useRef<HTMLDivElement>(null);
+    const containerRef = useRef<HTMLElement | null>(null);
     const [manualTrigger, setManualTrigger] = useState(false);
-    const [reducedMotion, setReducedMotion] = useState(false);
+    const [animando, setAnimando] = useState(false);
+    const reducedMotion = useSyncExternalStore(
+      suscribirMovimientoReducido,
+      leerMovimientoReducido,
+      leerMovimientoReducidoEnServidor,
+    );
     const inViewport = useInView(containerRef, {
       ...viewportOptions,
       margin: "-20%",
     });
-
-    useEffect(() => {
-      const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-      setReducedMotion(mq.matches);
-      const handler = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
-      mq.addEventListener("change", handler);
-      return () => mq.removeEventListener("change", handler);
-    }, []);
 
     const isActive = manualTrigger || inViewport;
 
@@ -303,9 +332,13 @@ export const BlurHighlight = React.forwardRef<
       bounce: 0,
     };
 
+    const Element = MOTION_ELEMENTS[as];
+
     return (
-      <motion.div
-        ref={containerRef}
+      <Element
+        ref={(node: HTMLElement | null) => {
+          containerRef.current = node;
+        }}
         initial={
           reducedMotion
             ? { opacity: 1, filter: "blur(0px)" }
@@ -330,7 +363,10 @@ export const BlurHighlight = React.forwardRef<
                 ease: [0.25, 0.1, 0.25, 1],
               }
         }
-        className={cn("will-change-[filter,opacity]", className)}
+        onAnimationStart={() => setAnimando(true)}
+        onAnimationComplete={() => setAnimando(false)}
+        // La capa de composición sólo se reserva mientras el filtro cambia.
+        className={cn(animando && "will-change-[filter,opacity]", className)}
       >
         {processedContent.parts.map((part, index) => {
           if (!part.highlight) {
@@ -349,7 +385,7 @@ export const BlurHighlight = React.forwardRef<
             </HighlightWrapper>
           );
         })}
-      </motion.div>
+      </Element>
     );
   },
 );

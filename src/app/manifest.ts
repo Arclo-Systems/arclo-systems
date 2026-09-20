@@ -8,18 +8,14 @@ export default function manifest(): MetadataRoute.Manifest {
       "Custom SaaS, web & mobile apps, AI agents, and automations.",
     start_url: "/",
     display: "browser",
-    background_color: "#ffffff",
-    theme_color: "#ffffff",
+    background_color: "#0B111D",
+    theme_color: "#0B111D",
+    // Solo íconos que existen en public/: icon-192.png e icon-512.png están pendientes de generar.
     icons: [
       {
-        src: "/icon-192.png",
-        sizes: "192x192",
-        type: "image/png",
-      },
-      {
-        src: "/icon-512.png",
-        sizes: "512x512",
-        type: "image/png",
+        src: "/favicon.ico",
+        sizes: "any",
+        type: "image/x-icon",
       },
     ],
   };

@@ -1,6 +1,7 @@
 "use client";
 
-import { useRef, useEffect, useState, type ReactNode } from "react";
+import { useRef, useEffect, useState, useContext, type ReactNode } from "react";
+import { CargaContext } from "@/components/page-preloader";
 
 interface RevealProps {
   children: ReactNode;
@@ -12,6 +13,9 @@ export function Reveal({ children, className = "", delay = 0 }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
+  const carga = useContext(CargaContext);
+  // Fuera del preloader no hay cortina que esperar.
+  const listo = carga?.listo ?? true;
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -23,7 +27,7 @@ export function Reveal({ children, className = "", delay = 0 }: RevealProps) {
 
   useEffect(() => {
     const el = ref.current;
-    if (!el) return;
+    if (!el || !listo) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -37,7 +41,7 @@ export function Reveal({ children, className = "", delay = 0 }: RevealProps) {
 
     observer.observe(el);
     return () => observer.disconnect();
-  }, []);
+  }, [listo]);
 
   return (
     <div
@@ -48,8 +52,8 @@ export function Reveal({ children, className = "", delay = 0 }: RevealProps) {
           ? { opacity: visible ? 1 : 0, transition: "opacity 0.01s" }
           : {
               opacity: visible ? 1 : 0,
-              transform: visible ? "translateY(0)" : "translateY(24px)",
-              transition: `opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms`,
+              transform: visible ? "none" : "translateY(12px)",
+              transition: `opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms`,
             }
       }
     >

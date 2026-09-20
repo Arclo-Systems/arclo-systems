@@ -14,21 +14,25 @@ const routes = [
 ];
 
 const locales = ["es", "en"] as const;
+const DEFAULT_LOCALE = "es";
+
+const localizedUrl = (locale: string, path: string) =>
+  `${BASE_URL}/${locale}${path === "/" ? "" : path}`;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return routes.flatMap((route) =>
     locales.map((locale) => ({
-      url: `${BASE_URL}/${locale}${route.path === "/" ? "" : route.path}`,
+      url: localizedUrl(locale, route.path),
       lastModified: new Date(),
       changeFrequency: route.changeFrequency,
       priority: route.priority,
       alternates: {
-        languages: Object.fromEntries(
-          locales.map((l) => [
-            l,
-            `${BASE_URL}/${l}${route.path === "/" ? "" : route.path}`,
-          ]),
-        ),
+        languages: {
+          ...Object.fromEntries(
+            locales.map((l) => [l, localizedUrl(l, route.path)]),
+          ),
+          "x-default": localizedUrl(DEFAULT_LOCALE, route.path),
+        },
       },
     })),
   );

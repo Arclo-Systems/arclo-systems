@@ -36,11 +36,11 @@ export default async function PrivacyPage() {
     <main>
       <div className="mx-auto w-full max-w-4xl px-6 pb-16 pt-32 lg:px-8">
         <Reveal>
-          <h1 className="mb-2 text-4xl font-medium tracking-tight text-neutral-900 sm:text-5xl">
+          <h1 className="mb-2 text-4xl font-medium tracking-tight text-foreground sm:text-5xl">
             {t("title")}
           </h1>
-          <p className="mb-12 text-sm text-neutral-500">{t("lastUpdated")}</p>
-          <p className="mb-10 text-base leading-relaxed text-neutral-700">
+          <p className="mb-12 text-sm text-muted-foreground">{t("lastUpdated")}</p>
+          <p className="mb-10 text-base leading-relaxed text-foreground">
             {t("intro")}
           </p>
         </Reveal>
@@ -48,10 +48,10 @@ export default async function PrivacyPage() {
         {SECTIONS.map((n) => (
           <Reveal key={n}>
             <section className="mb-8">
-              <h2 className="mb-3 text-xl font-medium tracking-tight text-neutral-900">
+              <h2 className="mb-3 text-xl font-medium tracking-tight text-foreground">
                 {t(`section${n}Title`)}
               </h2>
-              <p className="text-base leading-relaxed text-neutral-700">
+              <p className="text-base leading-relaxed text-foreground">
                 {t(`section${n}Content`)}
               </p>
             </section>

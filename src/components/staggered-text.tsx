@@ -302,68 +302,73 @@ const StaggeredText = forwardRef<StaggeredTextHandle, StaggeredTextProps>(
         ref={rootRef as React.RefObject<HTMLParagraphElement>}
         className={`staggered-text ${hasMultipleRows || segmentBy === "lines" ? "block" : "flex flex-wrap"} whitespace-pre-wrap ${className}`}
       >
-        {rowsSegments.map((rowSegments, rowIndex) => (
-          <React.Fragment key={`row-${rowIndex}`}>
-            {rowSegments.map((segment, rowSegIndex) => {
-              const globalIndex = globalIndexCounter++;
-              const isLast = globalIndex === totalSegments - 1;
+        <span aria-hidden="true">
+          {rowsSegments.map((rowSegments, rowIndex) => (
+            <React.Fragment key={`row-${rowIndex}`}>
+              {rowSegments.map((segment, rowSegIndex) => {
+                const globalIndex = globalIndexCounter++;
+                const isLast = globalIndex === totalSegments - 1;
 
-              const transition: Transition = prefersReducedMotion
-                ? {
-                    duration: 0.01,
-                    delay: 0,
-                  }
-                : {
-                    duration,
-                    times,
-                    delay: getStaggerDelay(globalIndex, totalSegments),
-                    ease: easing,
-                  };
+                const transition: Transition = prefersReducedMotion
+                  ? {
+                      duration: 0.01,
+                      delay: 0,
+                    }
+                  : {
+                      duration,
+                      times,
+                      delay: getStaggerDelay(globalIndex, totalSegments),
+                      ease: easing,
+                    };
 
-              return (
-                <motion.span
-                  key={`seg-${rowIndex}-${rowSegIndex}`}
-                  initial={fromSnapshot}
-                  animate={
-                    isExiting
-                      ? fromSnapshot
-                      : hasEnteredView
-                        ? animateKeyframes
-                        : fromSnapshot
-                  }
-                  transition={transition}
-                  onAnimationComplete={
-                    isLast
-                      ? () => {
-                          if (isExiting) {
-                            onExitComplete?.();
-                          } else {
-                            onAnimationComplete?.();
+                return (
+                  <motion.span
+                    key={`seg-${rowIndex}-${rowSegIndex}`}
+                    initial={fromSnapshot}
+                    animate={
+                      isExiting
+                        ? fromSnapshot
+                        : hasEnteredView
+                          ? animateKeyframes
+                          : fromSnapshot
+                    }
+                    transition={transition}
+                    onAnimationComplete={
+                      isLast
+                        ? () => {
+                            if (isExiting) {
+                              onExitComplete?.();
+                            } else {
+                              onAnimationComplete?.();
+                            }
                           }
-                        }
-                      : undefined
-                  }
-                  style={{
-                    display: segmentBy === "lines" ? "block" : "inline-block",
-                    willChange: "transform, filter, opacity",
-                  }}
-                >
-                  {segmentBy === "chars"
-                    ? segment === " "
-                      ? "\u00A0"
-                      : segment
-                    : segment}
-                  {segmentBy === "words" &&
-                    rowSegIndex < rowSegments.length - 1 &&
-                    "\u00A0"}
-                </motion.span>
-              );
-            })}
-            {rowIndex < rowsSegments.length - 1 && segmentBy !== "lines" && (
-              <br key={`br-${rowIndex}`} />
-            )}
-          </React.Fragment>
-        ))}
+                        : undefined
+                    }
+                    style={{
+                      display: segmentBy === "lines" ? "block" : "inline-block",
+                      willChange: hasEnteredView ? "transform, opacity" : "auto",
+                    }}
+                  >
+                    {segmentBy === "chars"
+                      ? segment === " "
+                        ? "\u00A0"
+                        : segment
+                      : segment}
+                    {segmentBy === "words" &&
+                      rowSegIndex < rowSegments.length - 1 &&
+                      "\u00A0"}
+                  </motion.span>
+                );
+              })}
+              {rowIndex < rowsSegments.length - 1 && segmentBy !== "lines" && (
+                <br key={`br-${rowIndex}`} />
+              )}
+            </React.Fragment>
+          ))}
+        </span>
+        {/* Al final y no al principio: hay consumidores que pintan
+            `span:last-child`, y ese debe seguir siendo el último segmento. */}
+        <span className="sr-only">{text}</span>
       </Wrapper>
     );
   },

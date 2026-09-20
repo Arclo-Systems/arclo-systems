@@ -27,15 +27,16 @@ export function Contact() {
       return;
     }
 
+    const texto = (v: FormDataEntryValue | null) =>
+      typeof v === "string" ? v.trim() : "";
+
     const data = {
-      firstName: formData.get("firstName") as string,
-      lastName: formData.get("lastName") as string,
-      email: formData.get("email") as string,
-      company: formData.get("company") as string,
-      message: formData.get("message") as string,
+      firstName: texto(formData.get("firstName")),
+      email: texto(formData.get("email")),
+      message: texto(formData.get("message")),
     };
 
-    if (!data.firstName || !data.lastName || !data.email || !data.message) {
+    if (!data.firstName || !data.email || !data.message) {
       setStatus("error");
       setErrorMsg(t("errorMissing"));
       return;
@@ -54,14 +55,17 @@ export function Contact() {
   }
 
   const inputClassName =
-    "w-full border-b border-neutral-300 bg-transparent pb-3 text-neutral-900 placeholder-neutral-400 outline-none transition-colors focus-visible:border-[#2563EB] focus-visible:ring-1 focus-visible:ring-[#2563EB]/30";
+    // El foco se marca con la línea de abajo, no con un anillo: el anillo
+    // dibuja un rectángulo alrededor de un campo que sólo tiene borde inferior.
+    "w-full border-b border-input bg-transparent pb-3 text-foreground placeholder-muted-foreground transition-colors duration-200 focus-visible:border-brand";
 
   return (
-    <section id="contact" className="w-full py-16 sm:py-24">
+    <section id="contact" className="w-full scroll-mt-24 py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mb-12 sm:mb-16">
           <BlurHighlight
-            className="text-3xl font-medium tracking-tight text-neutral-900 sm:text-4xl md:text-5xl lg:text-6xl"
+            as="h2"
+            className="text-3xl font-medium tracking-tight text-foreground sm:text-4xl md:text-5xl lg:text-6xl"
             blurAmount={6}
             blurDuration={0.6}
             viewportOptions={{ once: true, amount: 0.3 }}
@@ -69,7 +73,7 @@ export function Contact() {
             {t("title")}
           </BlurHighlight>
           <Reveal>
-            <p className="mt-4 text-xl text-neutral-600 sm:text-2xl">
+            <p className="mt-2 text-base text-muted-foreground sm:text-lg">
               {t("subtitleLine1")}{" "}
               {t("subtitleLine2")}
             </p>
@@ -77,32 +81,22 @@ export function Contact() {
         </div>
 
         <Reveal delay={100}>
-          <form ref={formRef} onSubmit={handleSubmit} className="space-y-8">
-            <div className="grid gap-8 sm:grid-cols-2">
-              <div>
-                <label htmlFor="firstName" className="sr-only">{t("firstName")}</label>
-                <input
-                  id="firstName"
-                  name="firstName"
-                  placeholder={`${t("firstName")}\u2026`}
-                  type="text"
-                  autoComplete="given-name"
-                  required
-                  className={inputClassName}
-                />
-              </div>
-              <div>
-                <label htmlFor="lastName" className="sr-only">{t("lastName")}</label>
-                <input
-                  id="lastName"
-                  name="lastName"
-                  placeholder={`${t("lastName")}\u2026`}
-                  type="text"
-                  autoComplete="family-name"
-                  required
-                  className={inputClassName}
-                />
-              </div>
+          <form
+            ref={formRef}
+            onSubmit={handleSubmit}
+            className="max-w-xl space-y-8"
+          >
+            <div>
+              <label htmlFor="firstName" className="sr-only">{t("firstName")}</label>
+              <input
+                id="firstName"
+                name="firstName"
+                placeholder={`${t("firstName")}…`}
+                type="text"
+                autoComplete="name"
+                required
+                className={inputClassName}
+              />
             </div>
             <div>
               <label htmlFor="email" className="sr-only">{t("email")}</label>
@@ -114,17 +108,6 @@ export function Contact() {
                 autoComplete="email"
                 spellCheck={false}
                 required
-                className={inputClassName}
-              />
-            </div>
-            <div>
-              <label htmlFor="company" className="sr-only">{t("company")}</label>
-              <input
-                id="company"
-                name="company"
-                placeholder={`${t("company")}\u2026`}
-                type="text"
-                autoComplete="organization"
                 className={inputClassName}
               />
             </div>
@@ -146,10 +129,10 @@ export function Contact() {
                   name="privacy"
                   type="checkbox"
                   value="accepted"
-                  className="peer h-5 w-5 appearance-none rounded-full border border-neutral-400 transition-colors checked:border-neutral-900 checked:bg-neutral-900"
+                  className="peer h-5 w-5 appearance-none rounded-full border border-input transition-colors duration-200 checked:border-foreground checked:bg-foreground"
                 />
                 <svg
-                  className="pointer-events-none absolute hidden h-3 w-3 text-white peer-checked:block"
+                  className="pointer-events-none absolute hidden h-3 w-3 text-background peer-checked:block"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
@@ -160,11 +143,11 @@ export function Contact() {
                   <polyline points="20 6 9 17 4 12" />
                 </svg>
               </span>
-              <span className="text-sm text-neutral-600">
+              <span className="text-sm text-muted-foreground">
                 {t("privacyPrefix")}{" "}
                 <Link
                   href="/privacy"
-                  className="underline transition-colors hover:text-neutral-900"
+                  className="underline transition-colors duration-200 hover:text-foreground"
                 >
                   {t("privacyLink")}
                 </Link>
@@ -173,7 +156,7 @@ export function Contact() {
 
             <div aria-live="polite">
               {status === "success" && (
-                <p className="text-sm text-green-600">{t("success")}</p>
+                <p className="text-sm text-green-700 dark:text-green-400">{t("success")}</p>
               )}
               {status === "error" && (
                 <p className="text-sm text-red-600">{errorMsg}</p>
@@ -183,7 +166,7 @@ export function Contact() {
             <button
               type="submit"
               disabled={status === "sending"}
-              className="rounded-xl bg-neutral-900 px-12 py-4 text-base font-medium text-white transition-all duration-300 hover:bg-[#2563EB] disabled:opacity-50 disabled:hover:bg-neutral-900"
+              className="rounded-xl bg-foreground px-12 py-4 text-base font-medium text-background transition-[background-color,transform] duration-200 active:scale-97 hover:bg-brand disabled:opacity-50 disabled:hover:bg-foreground"
             >
               {status === "sending" ? t("sending") : t("submit")}
             </button>

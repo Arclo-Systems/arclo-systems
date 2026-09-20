@@ -1,5 +1,6 @@
 import { getTranslations, getLocale } from "next-intl/server";
 import { Hero } from "@/components/hero";
+import { VideoSequence } from "@/components/video-sequence";
 import { Services } from "@/components/services";
 import { Projects } from "@/components/projects";
 import { Team } from "@/components/team";
@@ -25,7 +26,7 @@ export default async function Home() {
   const tFaq = await getTranslations("Faq");
   const tMeta = await getTranslations("Metadata");
 
-  const faqKeys = ["faq1", "faq2", "faq3", "faq4", "faq5"] as const;
+  const faqKeys = ["faq1", "faq2", "faq3", "faq4", "faq5", "faq6"] as const;
 
   const organizationLd = {
     "@context": "https://schema.org",
@@ -47,10 +48,10 @@ export default async function Home() {
       "https://www.facebook.com/profile.php?id=61588236786696",
     ],
     serviceType: [
-      "Custom Software Development",
-      "SaaS Development",
-      "AI Agents",
       "Automation",
+      "System Integration",
+      "AI Agents",
+      "Custom Software Development",
       "Web Applications",
       "Mobile Applications",
     ],
@@ -78,11 +79,12 @@ export default async function Home() {
   };
 
   return (
-    <main>
+    <main className="pt-20">
       <JsonLd data={organizationLd} />
       <JsonLd data={websiteLd} />
       <JsonLd data={faqLd} />
       <Hero />
+      <VideoSequence />
       <TextSeparator text={t("text")} />
       <Services />
       <Projects />

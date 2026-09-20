@@ -1,36 +1,41 @@
 {
   "Metadata": {
     "title": "arclo - Software a medida para tu negocio",
-    "description": "SaaS, apps web y móviles, agentes IA y automatizaciones. De la idea a producción, a tu medida."
+    "description": "Automatizaciones, integraciones y agentes IA para empresas en Costa Rica. Software a medida, apps web y móviles. De la idea al lanzamiento, con código propio."
   },
   "Separator": {
-    "text": "SOFTWARE · DISEÑO · INNOVACIÓN · TECNOLOGÍA · CÓDIGO · "
+    "text": "HECHO EN COSTA RICA · DE LA IDEA AL LANZAMIENTO · "
   },
   "Navbar": {
     "services": "Servicios",
     "about": "Nosotros",
     "faq": "FAQ",
-    "contact": "Contacto"
+    "contact": "Contacto",
+    "menu": "Menú",
+    "close": "Cerrar",
+    "others": "Otros",
+    "social": "Redes",
+    "sections": "Secciones",
+    "work": "Proyectos",
+    "terms": "Términos de uso",
+    "privacy": "Política de privacidad",
+    "support": "Soporte",
+    "language": "Idioma"
   },
   "Hero": {
-    "badgeLabel": "Nuevo",
-    "badgeText": "Agentes IA y automatizaciones",
-    "badgeTextShort": "IA y automatizaciones",
-    "title": "Construimos software que impulsa tu negocio",
-    "description": "SaaS a medida, apps web y móviles, agentes IA y automatizaciones. De la idea a producción, adaptado a tus necesidades.",
-    "cta": "Empezar",
-    "ourWork": "Nuestro Trabajo",
-    "projectsCount": "+3",
-    "projectsLabel": "Años de experiencia en desarrollo de software.",
-    "imageAlt": "Ingeniero trabajando en sistema de diseño",
-    "contact": "Contacto"
+    "badgeText": "Kodi ya está disponible",
+    "titleLead": "Tu operación no necesita más gente.",
+    "titleAccent": "Necesita mejor software.",
+    "description": "Software a medida, integraciones, automatizaciones y agentes de IA para empresas. También hacemos producto propio: Kodi es nuestro, del diseño a la tienda.",
+    "cta": "Contanos tu proyecto",
+    "ourWork": "Ver nuestro trabajo",
+    "trustLine": "El código queda a tu nombre al cerrar el proyecto."
   },
   "Footer": {
     "headline": "Tu visión, nuestro código.\nHecho para escalar.",
     "newsletterTitle": "Mantente al día con lo que estamos construyendo.",
     "emailPlaceholder": "Ingresa tu correo electrónico",
     "subscribeLabel": "Suscribirse",
-    "subscribing": "Suscribiendo...",
     "subscribeSuccess": "Te has suscrito correctamente.",
     "subscribeError": "No se pudo suscribir. Intenta de nuevo.",
     "disclaimer": "*Al completar este formulario aceptas recibir nuestros correos. Puedes cancelar en cualquier momento.",
@@ -49,11 +54,6 @@
       "mvp": "Desarrollo MVP"
     },
     "companyTitle": "Contactos",
-    "company": {
-      "about": "Sobre Nosotros",
-      "work": "Nuestro Trabajo",
-      "blog": "Blog"
-    },
     "resourcesTitle": "Recursos",
     "resources": {
       "contact": "Contacto",
@@ -66,89 +66,92 @@
   },
   "Services": {
     "title": "Lo que hacemos",
-    "subtitle": "Servicios integrales de software para llevar tu negocio al siguiente nivel",
-    "customDev": "Dev a Medida",
-    "customDevDesc": "Soluciones únicas adaptadas a los procesos y necesidades específicas de tu negocio.",
-    "saas": "SaaS",
-    "saasDesc": "Productos de software como servicio escalables, desde la idea hasta el mercado.",
-    "ai": "IA y Agentes",
-    "aiDesc": "Agentes inteligentes y modelos de IA integrados en tus flujos de trabajo.",
-    "automations": "Automación",
-    "automationsDesc": "Automatización de procesos repetitivos para reducir costos y errores.",
-    "webApps": "Apps Web",
-    "webAppsDesc": "Aplicaciones web modernas, rápidas y responsivas con las mejores tecnologías.",
-    "mobileApps": "Apps Móvil",
-    "mobileAppsDesc": "Apps nativas y multiplataforma para iOS y Android."
+    "subtitle": "Cinco frentes. La mayoría de los proyectos empieza por uno y termina tocando varios.",
+    "automations": "Automatizaciones",
+    "automationsDesc": "El trabajo manual y repetitivo pasa a ejecutarse solo, con registro de cada paso.",
+    "integrations": "Integraciones",
+    "integrationsDesc": "Sistemas que no se hablan entre sí —facturación, inventario, CRM, bodega— conectados y sincronizados.",
+    "ai": "Agentes de IA",
+    "aiDesc": "Responden, clasifican y redactan sobre los datos de tu operación, no sobre los de internet.",
+    "customDev": "Software a medida",
+    "customDevDesc": "Cuando ninguna solución del mercado cubre tu proceso, se construye la que sí.",
+    "apps": "Apps web y móviles",
+    "appsDesc": "Lo que tu equipo y tus clientes usan todos los días, en cualquier dispositivo.",
+    "moreTitle": "¿Tu caso no está acá?",
+    "moreDesc": "La lista son los frentes más comunes, no el límite. Contanos el problema y te decimos si podemos tomarlo.",
+    "moreCta": "Plantear el caso"
   },
   "Projects": {
     "title": "Nuestro trabajo",
-    "subtitle": "Proyectos que hablan por sí solos",
+    "subtitle": "Producto propio y plataformas que ya usan empresas todos los días.",
     "visitProject": "Visitar proyecto",
+    "moreSoon": "Hay otros proyectos de clientes en desarrollo que todavía no podemos mostrar.",
     "project1": {
-      "name": "MiloPay",
-      "tag": "Finanzas Personales · SaaS",
-      "description": "Plataforma de finanzas personales para gestionar ingresos, gastos, suscripciones y reportes financieros con dashboards en tiempo real."
+      "name": "Kodi",
+      "tag": "Producto propio",
+      "description": "Nuestra app de preparación para admisión universitaria, pruebas nacionales estandarizadas y licencias del COSEVI. Diseño, desarrollo, infraestructura y publicación, todo nuestro. En Android; iOS en revisión."
     },
     "project2": {
       "name": "Transportes Acaya",
-      "tag": "Logística · Plataforma Digital",
-      "description": "Plataforma digital que reemplazó un sistema basado en hojas de cálculo. Motor de viajes con 4 estados, tracking de rutas, cálculo automático de tarifas, dashboards por rol y notificaciones en tiempo real."
+      "tag": "Logística",
+      "description": "Operaban sobre hojas de cálculo que nadie podía editar a la vez. Hoy cada viaje tiene estado, cada ruta se sigue en vivo, las tarifas se calculan solas y cada rol ve lo que le corresponde."
     },
     "project3": {
-      "name": "Kodi",
-      "tag": "En Desarrollo",
-      "description": "Plataforma en desarrollo activo. Más detalles próximamente."
+      "name": "MiBrete",
+      "tag": "Producto propio",
+      "description": "En desarrollo. Damos detalles cuando salga."
     }
   },
   "Team": {
     "title": "Nuestro equipo",
-    "subtitle": "Las personas detrás del código",
+    "subtitle": "Con todos ellos vas a hablar durante el proyecto",
     "member1Name": "Emilio Rodríguez B.",
     "member1Role": "CEO & Founder",
-    "member1Desc": "Ingeniero de software líder con visión de producto. Dirige la arquitectura técnica y el equipo de desarrollo, asegurando entregas de alta calidad de principio a fin.",
+    "member1Desc": "Dirige la arquitectura técnica y al equipo de desarrollo. Lideró Kodi de la primera pantalla a la tienda. Cuando se define el alcance de un proyecto, se define con él.",
     "member2Name": "Luis Ugalde C.",
     "member2Role": "Co-Founder & CFO",
-    "member2Desc": "Estratega financiero que conecta la visión técnica con resultados de negocio. Experto en escalamiento y operaciones.",
+    "member2Desc": "Arma las propuestas y lleva los números de cada proyecto. Es quien te avisa si algo se está saliendo del presupuesto, antes de que pase.",
     "member3Name": "Juan Díaz A.",
-    "member3Role": "Project Management",
-    "member3Desc": "Gestor de proyectos que mantiene cada entrega en tiempo y forma. Especialista en metodologías ágiles y comunicación con clientes.",
+    "member3Role": "Co-Founder & PM",
+    "member3Desc": "Coordina las entregas y es tu punto de contacto durante el proyecto. Lleva el cronograma y te dice qué se necesita de tu lado y en qué momento.",
     "member4Name": "Edgar Alvarado Z.",
-    "member4Role": "Software Engineering",
-    "member4Desc": "Ingeniero full-stack con experiencia en múltiples tecnologías y frameworks. Enfocado en escribir código limpio y optimizado para producción."
+    "member4Role": "Co-Founder & SWE",
+    "member4Desc": "Construye y mantiene lo que se entrega. Se asegura de que el código que sale a producción sea código que otro equipo pueda seguir mañana."
   },
   "Faq": {
     "title": "Preguntas & respuestas",
-    "subtitle": "Todo lo que necesitas saber sobre trabajar con nosotros",
+    "subtitle": "Todo lo que necesitás saber antes de trabajar con nosotros",
     "faq1": {
-      "question": "¿Cuál es el tiempo típico de un proyecto?",
-      "answer": "La mayoría de proyectos toman 4-12 semanas desde el inicio hasta el lanzamiento, dependiendo del alcance. Trabajamos en sprints de 2 semanas con entrega continua, así verás progreso desde el primer día."
+      "question": "¿Cómo cobran?",
+      "answer": "Por proyecto, no por hora, con hitos definidos. Después de una primera llamada te enviamos una propuesta con alcance, cronograma e inversión cerrada. Si durante el proyecto pedís algo que está fuera de ese alcance, lo cotizamos aparte y lo aprobás antes de que lo hagamos. Nunca aparece un cobro que no hayas visto venir."
     },
     "faq2": {
-      "question": "¿En qué tecnologías se especializan?",
-      "answer": "Nos especializamos en React, Next.js, TypeScript, React Native, Node.js y plataformas cloud (AWS, Vercel). Elegimos la mejor herramienta para cada proyecto en lugar de forzar un enfoque único."
+      "question": "¿Cuánto toma un proyecto?",
+      "answer": "Entre 4 y 12 semanas del inicio al lanzamiento, según el alcance. Trabajamos en ciclos de dos semanas y al final de cada uno hay algo funcionando, así ves avance desde el primer día en vez de esperar hasta el final. Lo que más alarga un proyecto casi nunca es el desarrollo: son las decisiones que quedan pendientes del lado del cliente. Por eso la propuesta dice qué necesitamos de vos y en qué momento."
     },
     "faq3": {
-      "question": "¿Cómo funcionan sus precios?",
-      "answer": "Ofrecemos precios por proyecto con hitos claros. Después de una llamada de descubrimiento inicial, proporcionamos una propuesta detallada con alcance, cronograma e inversión. Sin costos ocultos."
+      "question": "¿Qué pasa si mañana dejamos de trabajar con ustedes?",
+      "answer": "El código fuente queda a tu nombre al cierre del proyecto. Trabajamos con tecnologías estándar de la industria, no con herramientas propias ni licencias atadas a nosotros, así que cualquier equipo puede continuar desde donde lo dejamos. No quedás amarrado."
     },
     "faq4": {
-      "question": "¿Ofrecen soporte después del lanzamiento?",
-      "answer": "Absolutamente. Ofrecemos planes de mantenimiento que incluyen corrección de bugs, monitoreo de rendimiento, actualizaciones de seguridad y mejoras de funcionalidad. Tu producto sigue evolucionando después del lanzamiento."
+      "question": "¿Qué pasa con nuestra información?",
+      "answer": "Firmamos confidencialidad en ambas direcciones, y la obligación sigue vigente dos años después de terminado el contrato. Tus datos, tus procesos y lo que nos contás del negocio no salen de ahí."
     },
     "faq5": {
-      "question": "¿Pueden trabajar con nuestro equipo existente?",
-      "answer": "Sí. Frecuentemente nos integramos con equipos de clientes como staff augmentation o tomamos responsabilidad de módulos específicos. Nos adaptamos a tus flujos de trabajo, herramientas y procesos."
+      "question": "¿Dan soporte después del lanzamiento?",
+      "answer": "Toda entrega final trae 30 días de garantía: cualquier error de software que aparezca en ese período lo corregimos sin costo adicional. Después hay planes de mantenimiento con monitoreo, actualizaciones de seguridad y mejoras de funcionalidad."
+    },
+    "faq6": {
+      "question": "¿Pueden trabajar con nuestro equipo interno?",
+      "answer": "Sí. Nos sumamos como parte de tu equipo o tomamos responsabilidad de módulos específicos. Nos adaptamos a tus procesos y herramientas, no al revés."
     }
   },
   "Contact": {
     "title": "Contáctanos",
     "subtitleLine1": "¿Listo para crear",
     "subtitleLine2": "algo increíble?",
-    "address": "San José, Costa Rica",
     "firstName": "Nombre",
-    "lastName": "Apellido",
     "email": "Correo electrónico",
-    "company": "Empresa",
     "message": "Escribe tu mensaje...",
     "privacyPrefix": "He leído y comprendido la",
     "privacyLink": "política de privacidad",
@@ -210,8 +213,14 @@
     "section10Content": "Para consultas sobre privacidad, contáctenos en info@arclosystems.com."
   },
   "Partners": {
-    "meta": { "title": "Registrá tu negocio como partner de Kodi | Costa Rica", "description": "Sumá tu negocio como partner de Kodi: cupones, banners y video patrocinado frente a estudiantes de todo Costa Rica. Primer mes gratis, sin compromiso. Registrate hoy." },
-    "header": { "title": "Registrá tu negocio", "subtitle": "Llená el formulario y nuestro equipo te contacta para activarte." },
+    "meta": {
+      "title": "Registrá tu negocio como partner de Kodi | Costa Rica",
+      "description": "Sumá tu negocio como partner de Kodi: cupones, banners y video patrocinado frente a estudiantes de todo Costa Rica. Primer mes gratis, sin compromiso. Registrate hoy."
+    },
+    "header": {
+      "title": "Registrá tu negocio",
+      "subtitle": "Llená el formulario y nuestro equipo te contacta para activarte."
+    },
     "sections": {
       "business": "Datos del negocio",
       "branches": "Sucursales",

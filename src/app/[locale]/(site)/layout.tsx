@@ -3,6 +3,8 @@ import { getTranslations } from "next-intl/server";
 import { Navbar } from "@/components/navbar";
 import { PagePreloader } from "@/components/page-preloader";
 import { BackgroundEffect } from "@/components/background-effect";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { SmoothScroll } from "@/components/smooth-scroll";
 
 const BASE_URL = "https://arclosystems.com";
 
@@ -27,7 +29,11 @@ export async function generateMetadata({
     metadataBase: new URL(BASE_URL),
     alternates: {
       canonical: url,
-      languages: { es: `${BASE_URL}/es`, en: `${BASE_URL}/en` },
+      languages: {
+        es: `${BASE_URL}/es`,
+        en: `${BASE_URL}/en`,
+        "x-default": `${BASE_URL}/es`,
+      },
     },
     openGraph: {
       title,
@@ -56,11 +62,13 @@ export default function SiteLayout({
 }) {
   return (
     <>
-      <BackgroundEffect />
+      <SmoothScroll />
       <PagePreloader>
+        <BackgroundEffect />
         <Navbar />
         {children}
       </PagePreloader>
+      <ThemeToggle />
     </>
   );
 }

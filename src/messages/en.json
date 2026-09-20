@@ -1,36 +1,41 @@
 {
   "Metadata": {
     "title": "arclo - Custom software for your business",
-    "description": "Custom SaaS, web & mobile apps, AI agents, and automations. From idea to production, tailored to your needs."
+    "description": "Automation, integrations and AI agents for companies in Costa Rica. Custom software, web and mobile apps. From idea to launch, with code you own."
   },
   "Separator": {
-    "text": "SOFTWARE · DESIGN · INNOVATION · TECHNOLOGY · CODE · "
+    "text": "MADE IN COSTA RICA · FROM IDEA TO LAUNCH · "
   },
   "Navbar": {
     "services": "Services",
     "about": "About",
     "faq": "FAQ",
-    "contact": "Contact"
+    "contact": "Contact",
+    "menu": "Menu",
+    "close": "Close",
+    "others": "Other",
+    "social": "Social",
+    "sections": "Sections",
+    "work": "Work",
+    "terms": "Terms of use",
+    "privacy": "Privacy policy",
+    "support": "Support",
+    "language": "Language"
   },
   "Hero": {
-    "badgeLabel": "New",
-    "badgeText": "AI agents & automations",
-    "badgeTextShort": "AI & automations",
-    "title": "We build software that drives your business forward",
-    "description": "Custom SaaS, web & mobile apps, AI agents, and automations. From idea to production, tailored to your needs.",
-    "cta": "Get Started",
-    "ourWork": "Our Work",
-    "projectsCount": "+3",
-    "projectsLabel": "Years of experience in software development.",
-    "imageAlt": "Engineer working on design system",
-    "contact": "Contact"
+    "badgeText": "Kodi is now available",
+    "titleLead": "Your operation doesn't need more people.",
+    "titleAccent": "It needs better software.",
+    "description": "Custom software, integrations, automations and AI agents for companies. We also build our own products: Kodi is ours, from design to store.",
+    "cta": "Tell us about your project",
+    "ourWork": "See our work",
+    "trustLine": "The code is yours when the project closes."
   },
   "Footer": {
     "headline": "Your vision, our code.\nBuilt to scale.",
     "newsletterTitle": "Stay updated on what we're building.",
     "emailPlaceholder": "Enter your email address",
     "subscribeLabel": "Subscribe",
-    "subscribing": "Subscribing...",
     "subscribeSuccess": "You have been subscribed successfully.",
     "subscribeError": "Could not subscribe. Please try again.",
     "disclaimer": "*By completing this form you are signing up to receive our emails and can unsubscribe at any time.",
@@ -49,11 +54,6 @@
       "mvp": "MVP Development"
     },
     "companyTitle": "Contacts",
-    "company": {
-      "about": "About Us",
-      "work": "Our Work",
-      "blog": "Blog"
-    },
     "resourcesTitle": "Resources",
     "resources": {
       "contact": "Contact",
@@ -66,89 +66,92 @@
   },
   "Services": {
     "title": "What we do",
-    "subtitle": "End-to-end software services to take your business to the next level",
-    "customDev": "Custom Dev",
-    "customDevDesc": "Unique solutions tailored to your business processes and specific needs.",
-    "saas": "SaaS",
-    "saasDesc": "Scalable software-as-a-service products, from idea to market.",
-    "ai": "AI & Agents",
-    "aiDesc": "Intelligent agents and AI models integrated into your workflows.",
-    "automations": "Automation",
-    "automationsDesc": "Automate repetitive processes to reduce costs and errors.",
-    "webApps": "Web Apps",
-    "webAppsDesc": "Modern, fast, and responsive web applications with cutting-edge tech.",
-    "mobileApps": "Mobile",
-    "mobileAppsDesc": "Native and cross-platform apps for iOS and Android."
+    "subtitle": "Five fronts. Most projects start with one and end up touching several.",
+    "automations": "Automations",
+    "automationsDesc": "Manual, repetitive work starts running on its own, with a record of every step.",
+    "integrations": "Integrations",
+    "integrationsDesc": "Systems that don't talk to each other — billing, inventory, CRM, warehouse — connected and in sync.",
+    "ai": "AI agents",
+    "aiDesc": "They answer, classify and draft on your operation's data, not the internet's.",
+    "customDev": "Custom software",
+    "customDevDesc": "When nothing on the market covers your process, we build what does.",
+    "apps": "Web and mobile apps",
+    "appsDesc": "What your team and your customers use every day, on any device.",
+    "moreTitle": "Not seeing your case here?",
+    "moreDesc": "The list is the most common fronts, not the limit. Tell us the problem and we'll say whether we can take it.",
+    "moreCta": "Describe your case"
   },
   "Projects": {
     "title": "Our work",
-    "subtitle": "Projects that speak for themselves",
+    "subtitle": "Our own products, plus platforms companies already use every day.",
     "visitProject": "Visit project",
+    "moreSoon": "There are other client projects in development that we can't show yet.",
     "project1": {
-      "name": "MiloPay",
-      "tag": "Personal Finance · SaaS",
-      "description": "Personal finance platform for managing income, expenses, subscriptions and financial reports with real-time dashboards."
+      "name": "Kodi",
+      "tag": "Our own product",
+      "description": "Our prep app for university admission, national standardized tests and COSEVI licenses. Design, development, infrastructure and release, all ours. Live on Android; iOS under review."
     },
     "project2": {
       "name": "Transportes Acaya",
-      "tag": "Logistics · Digital Platform",
-      "description": "Digital platform that replaced a spreadsheet-based system. Trip lifecycle engine with 4 states, route tracking, automatic rate calculation, role-based dashboards and real-time notifications."
+      "tag": "Logistics",
+      "description": "They ran on spreadsheets nobody could edit at the same time. Now every trip has a status, every route is tracked live, fares are calculated automatically and each role sees what belongs to them."
     },
     "project3": {
-      "name": "Kodi",
-      "tag": "In Development",
-      "description": "Platform under active development. More details coming soon."
+      "name": "MiBrete",
+      "tag": "Our own product",
+      "description": "In development. We'll share details when it ships."
     }
   },
   "Team": {
     "title": "Our team",
-    "subtitle": "The people behind the code",
+    "subtitle": "You'll talk to all of them during the project",
     "member1Name": "Emilio Rodríguez B.",
     "member1Role": "CEO & Founder",
-    "member1Desc": "Lead software engineer with a product mindset. Drives technical architecture and the dev team, ensuring high-quality delivery from start to finish.",
+    "member1Desc": "Leads the technical architecture and the development team. Took Kodi from the first screen to the store. When a project's scope gets defined, it gets defined with him.",
     "member2Name": "Luis Ugalde C.",
     "member2Role": "Co-Founder & CFO",
-    "member2Desc": "Financial strategist who connects technical vision with business results. Expert in scaling and operations.",
+    "member2Desc": "Puts together the proposals and runs the numbers on every project. He's the one who tells you if something is drifting past budget, before it does.",
     "member3Name": "Juan Díaz A.",
-    "member3Role": "Project Management",
-    "member3Desc": "Project manager who keeps every delivery on time and on track. Specialist in agile methodologies and client communication.",
+    "member3Role": "Co-Founder & PM",
+    "member3Desc": "Coordinates deliveries and is your point of contact throughout the project. He runs the timeline and tells you what's needed on your side and when.",
     "member4Name": "Edgar Alvarado Z.",
-    "member4Role": "Software Engineering",
-    "member4Desc": "Full-stack engineer experienced across multiple technologies and frameworks. Focused on writing clean, production-ready code."
+    "member4Role": "Co-Founder & SWE",
+    "member4Desc": "Builds and maintains what gets delivered. Makes sure the code that ships is code another team could pick up tomorrow."
   },
   "Faq": {
     "title": "Questions & answers",
-    "subtitle": "Everything you need to know about working with us",
+    "subtitle": "Everything you need to know before working with us",
     "faq1": {
-      "question": "What is the typical project timeline?",
-      "answer": "Most projects take 4-12 weeks from kickoff to launch, depending on scope. We work in 2-week sprints with continuous delivery, so you'll see progress from day one."
+      "question": "How do you charge?",
+      "answer": "Per project, not per hour, with defined milestones. After a first call we send a proposal with scope, timeline and a fixed investment. If you ask for something outside that scope during the project, we quote it separately and you approve it before we build it. No invoice ever shows up that you didn't see coming."
     },
     "faq2": {
-      "question": "What technologies do you specialize in?",
-      "answer": "We specialize in React, Next.js, TypeScript, React Native, Node.js and cloud platforms (AWS, Vercel). We pick the best tool for each project rather than forcing a one-size-fits-all approach."
+      "question": "How long does a project take?",
+      "answer": "Between 4 and 12 weeks from start to launch, depending on scope. We work in two-week cycles and something is working at the end of each one, so you see progress from day one instead of waiting until the end. What stretches a project is almost never the development: it's decisions left pending on the client's side. That's why the proposal states what we need from you and when."
     },
     "faq3": {
-      "question": "How does your pricing work?",
-      "answer": "We offer per-project pricing with clear milestones. After an initial discovery call, we provide a detailed proposal with scope, timeline and investment. No hidden costs."
+      "question": "What happens if we stop working with you?",
+      "answer": "The source code is yours when the project closes. We work with industry-standard technology, not proprietary tools or licenses tied to us, so any team can pick up where we left off. You're not locked in."
     },
     "faq4": {
-      "question": "Do you offer post-launch support?",
-      "answer": "Absolutely. We offer maintenance plans that include bug fixes, performance monitoring, security updates and feature enhancements. Your product keeps evolving after launch."
+      "question": "What happens to our information?",
+      "answer": "We sign confidentiality both ways, and the obligation stays in force for two years after the contract ends. Your data, your processes and whatever you tell us about the business stay there."
     },
     "faq5": {
-      "question": "Can you work with our existing team?",
-      "answer": "Yes. We frequently integrate with client teams as staff augmentation or take ownership of specific modules. We adapt to your workflows, tools and processes."
+      "question": "Do you provide support after launch?",
+      "answer": "Every final delivery comes with a 30-day warranty: any software defect that shows up in that period we fix at no extra cost. After that, we have maintenance plans covering monitoring, security updates and feature improvements."
+    },
+    "faq6": {
+      "question": "Can you work with our in-house team?",
+      "answer": "Yes. We join as part of your team or take ownership of specific modules. We adapt to your processes and tools, not the other way around."
     }
   },
   "Contact": {
     "title": "Contact us",
     "subtitleLine1": "Ready to create",
     "subtitleLine2": "something amazing?",
-    "address": "San José, Costa Rica",
-    "firstName": "First name",
-    "lastName": "Last name",
+    "firstName": "Name",
     "email": "Email",
-    "company": "Company",
     "message": "Type your message...",
     "privacyPrefix": "I have read and understood the",
     "privacyLink": "privacy statement",
@@ -210,8 +213,14 @@
     "section10Content": "For privacy inquiries, contact us at info@arclosystems.com."
   },
   "Partners": {
-    "meta": { "title": "Register your business as a Kodi partner | Costa Rica", "description": "Add your business as a Kodi partner: coupons, banners and sponsored video in front of students across Costa Rica. First month free, no commitment. Register today." },
-    "header": { "title": "Register your business", "subtitle": "Fill the form and our team will contact you to activate you." },
+    "meta": {
+      "title": "Register your business as a Kodi partner | Costa Rica",
+      "description": "Add your business as a Kodi partner: coupons, banners and sponsored video in front of students across Costa Rica. First month free, no commitment. Register today."
+    },
+    "header": {
+      "title": "Register your business",
+      "subtitle": "Fill the form and our team will contact you to activate you."
+    },
     "sections": {
       "business": "Business details",
       "branches": "Branches",

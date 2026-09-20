@@ -88,12 +88,12 @@ const couponSchema = z.object({
     .array(z.enum(["cupon", "video", "banner"]))
     .min(1, { message: "required" }),
   discountType: z.enum(["percentage", "fixed"]),
-  discountValue: z.number({ invalid_type_error: "required" }),
+  discountValue: z.number({ error: "required" }),
   description: z
     .string()
     .trim()
     .max(LIMITS.couponDescription, { message: "max" }),
-  quantity: z.number({ invalid_type_error: "required" }),
+  quantity: z.number({ error: "required" }),
   branchesScope: z
     .array(z.string().max(LIMITS.branchName, { message: "max" }))
     .default([]),
@@ -112,9 +112,7 @@ export const partnerSchema = z
     contact: contactSchema,
     coupon: couponSchema,
     confirmation: z.object({
-      accepted: z.literal(true, {
-        errorMap: () => ({ message: "must_accept" }),
-      }),
+      accepted: z.literal(true, { error: "must_accept" }),
     }),
     honeypot: z.string().default(""),
   })
@@ -160,4 +158,8 @@ export const partnerSchema = z
     }
   });
 
-export type PartnerFormValues = z.infer<typeof partnerSchema>;
+// Zod 4 separa lo que ENTRA de lo que SALE: un campo con `.default()` es
+// opcional al escribirlo y obligatorio después de validar. El formulario
+// maneja el primero; el envío recibe el segundo.
+export type PartnerFormValues = z.input<typeof partnerSchema>;
+export type PartnerFormOutput = z.output<typeof partnerSchema>;

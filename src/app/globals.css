@@ -11,6 +11,9 @@
   --font-mono: var(--font-geist-mono);
   --font-outfit: var(--font-outfit);
   --color-ring: var(--ring);
+  --color-brand: var(--brand);
+  --ease-out: var(--curva-salida);
+  --ease-in-out: var(--curva-entrada-salida);
   --color-input: var(--input);
   --color-border: var(--border);
   --color-destructive: var(--destructive);
@@ -36,7 +39,20 @@
 }
 
 :root {
+  color-scheme: light;
   --radius: 0.625rem;
+
+  /* El azul de marca. Vive acá y no como hex suelto porque necesita un valor
+     por tema: #2563EB da 5.17:1 sobre blanco, pero sólo 3.30:1 sobre las
+     tarjetas del oscuro, por debajo del 4.5:1 que pide el texto chico. */
+  --brand: oklch(0.5461 0.2152 262.9);
+
+  /* Movimiento. Un solo ease-out fuerte para toda la página. Los nombres
+     difieren de las utilidades de Tailwind a propósito: `--ease-out:
+     var(--ease-out)` sería una autorreferencia. */
+  --curva-salida: cubic-bezier(0.23, 1, 0.32, 1);
+  --curva-entrada-salida: cubic-bezier(0.77, 0, 0.175, 1);
+
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -54,57 +70,205 @@
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  /* El anterior daba 2.59:1 contra el blanco; el foco tiene que llegar a 3:1. */
+  --ring: oklch(0.5658 0 0);
 }
 
+/* Oscuro con la luz y la suavidad de la landing de Kodi (#0d1215) pero en el
+   tono de Arclo: mismo nivel de luz, croma a medio camino entre el gris de
+   Kodi y el azul noche, y el tono 264 del azul de marca. Las superficies suben
+   con los saltos de Kodi. */
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
+  color-scheme: dark;
+  --background: oklch(0.1783 0.026 264);
+  --foreground: oklch(0.9659 0.008 264);
+  --card: oklch(0.2255 0.029 264);
+  --card-foreground: oklch(0.9659 0.008 264);
+  --popover: oklch(0.2255 0.029 264);
+  --popover-foreground: oklch(0.9659 0.008 264);
+  --primary: oklch(0.9659 0.008 264);
+  --primary-foreground: oklch(0.1783 0.026 264);
+  --secondary: oklch(0.2924 0.033 264);
+  --secondary-foreground: oklch(0.9659 0.008 264);
+  --muted: oklch(0.2924 0.033 264);
+  --muted-foreground: oklch(0.744 0.026 264);
+  --accent: oklch(0.2924 0.033 264);
+  --accent-foreground: oklch(0.9659 0.008 264);
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
+  --border: oklch(0.3096 0.034 264);
+  --input: oklch(0.352 0.036 264);
+  --ring: oklch(0.5764 0.04 264);
+  --brand: oklch(0.6545 0.1562 262.5);
 }
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border;
+  }
+
+  /* Sin esto no había ninguna regla de foco de autor: lo único era un color al
+     50%, que da 1.96:1 contra el fondo y no llega al 3:1 que pide la norma. */
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
   }
   body {
     @apply bg-background text-foreground;
   }
 }
 
-@keyframes star-movement-bottom {
-  0% {
-    transform: translate(0%, 0%);
-    opacity: 1;
-  }
+/* ── Secuencia del video ──────────────────────────────────────────────────
+   Portada de la landing de Kodi: el recuadro aparece dentro de la primera
+   pantalla, se monta sobre el hero y crece hasta llenarla. Todo se mueve con
+   `transform`, nunca con `top`/`width`/`height`, que re-maquetan en cada
+   cuadro de scroll. El script escribe `transform` directo en cada elemento; lo
+   que hay acá son los valores de arranque, hasta que corre. */
+
+.secuencia {
+  position: relative;
+  z-index: 2;
+  /* Sube exactamente lo que mide el hero para que el avance del scroll y el
+     recorrido de la parte pegada coincidan. */
+  margin-top: calc(-1 * var(--alto-hero, var(--alto-ventana, 100svh)));
+  height: calc(var(--alto-ventana, 100svh) * 1.8);
+  pointer-events: none;
+}
+
+.secuencia__pegado {
+  position: sticky;
+  top: 0;
+  height: var(--alto-ventana, 100svh);
+  overflow: hidden;
+}
+
+.secuencia__rotulo {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translate(-50%, 806px);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--foreground);
+}
+
+.secuencia__play {
+  flex: none;
+}
+
+/* La caja tiene SIEMPRE el tamaño final y se encoge con `scale`. El radio es
+   fijo: compensarlo por la escala obligaba a repintar el marco en cada cuadro. */
+.secuencia__marco {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: calc(min(100vw, 80rem) - 2 * clamp(20px, 3vw, 40px));
+  height: calc(var(--alto-ventana, 100svh) - 120px);
+  transform-origin: top center;
+  transform: translate(-50%, 850px) scale(0.3, 0.33);
+  overflow: hidden;
+  border-radius: 24px;
+  /* Negro fijo y no `--foreground`: es lo que se ve detrás del video mientras
+     carga. En oscuro `--foreground` es casi blanco y el marco quedaría como un
+     bloque claro en medio de la página. */
+  background: #000;
+  pointer-events: auto;
+}
+
+/* Contraescala: sin ella el video se estira con la caja, que arranca con otra
+   proporción. Así el recuadro chico es una ventana sobre él, que es lo que
+   hace `cover`. */
+.secuencia__pieza {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(3.3333, 3.0303);
+}
+
+.secuencia__aviso {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  translate: -50%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px 8px 16px;
+  border-radius: 9999px;
+  background: rgb(0 0 0 / 0.55);
+  color: rgb(255 255 255 / 0.9);
+  opacity: 0;
+}
+
+.secuencia__aviso-texto {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.secuencia__flecha {
+  flex: none;
+  animation: secuencia-flecha 1.8s ease-in-out infinite;
+}
+
+@keyframes secuencia-flecha {
+  0%,
   100% {
-    transform: translate(-100%, 0%);
-    opacity: 0;
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 3px;
   }
 }
 
-@keyframes star-movement-top {
-  0% {
-    transform: translate(0%, 0%);
-    opacity: 1;
+@media (prefers-reduced-motion: reduce) {
+  .secuencia {
+    margin-top: 0;
+    height: auto;
+    padding-block: 4rem;
   }
-  100% {
-    transform: translate(100%, 0%);
-    opacity: 0;
+
+  .secuencia__pegado {
+    position: static;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+  }
+
+  .secuencia__rotulo,
+  .secuencia__marco {
+    position: static;
+    transform: none;
+  }
+
+  .secuencia__marco {
+    margin-top: 16px;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    border-radius: 24px;
+  }
+
+  .secuencia__pieza {
+    transform: none;
+  }
+
+  .secuencia__flecha {
+    animation: none;
+  }
+}
+
+/* La cortina de carga no puede esperar a que React hidrate para desaparecer:
+   quien pidió menos movimiento veía uno o dos segundos de pantalla vacía. Una
+   media query aplica en el primer pintado; un efecto, no. */
+@media (prefers-reduced-motion: reduce) {
+  .cortina-carga {
+    display: none;
   }
 }

@@ -7,7 +7,11 @@ import { MotionConfig, motion } from "motion/react";
 import { useTranslations, useLocale } from "next-intl";
 import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
-import { partnerSchema, type PartnerFormValues } from "./schema";
+import {
+  partnerSchema,
+  type PartnerFormOutput,
+  type PartnerFormValues,
+} from "./schema";
 import { MAX_LOGO_BYTES, MAX_PHOTO_BYTES, LOGO_MIN_PX } from "./data";
 import { validateUpload, getImageMinPxOk } from "@/lib/file-validation";
 import { submitPartnerRegistration } from "@/app/actions/partners";
@@ -109,7 +113,7 @@ export function PartnerForm() {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
-  const form = useForm<PartnerFormValues>({
+  const form = useForm<PartnerFormValues, unknown, PartnerFormOutput>({
     resolver: zodResolver(partnerSchema),
     defaultValues: DEFAULTS,
     mode: "onBlur",

@@ -1,9 +1,19 @@
 "use server";
 
-export async function subscribeNewsletter(email: string) {
-  if (!email || !email.includes("@")) {
+import { z } from "zod";
+
+const newsletterSchema = z.object({
+  email: z.string().trim().email({ error: "invalid_email" }),
+});
+
+export async function subscribeNewsletter(rawEmail: string) {
+  const parsed = newsletterSchema.safeParse({ email: rawEmail });
+
+  if (!parsed.success) {
     return { success: false, error: "invalid_email" };
   }
+
+  const { email } = parsed.data;
 
   const apiKey = process.env.BREVO_API_KEY;
 

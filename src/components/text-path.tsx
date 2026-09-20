@@ -62,6 +62,9 @@ const TextPath: React.FC<TextPathProps> = ({
       ).matches;
       if (prefersReduced) return;
 
+      const cinta = containerRef.current;
+      if (!cinta) return;
+
       const tl = gsap.timeline({
         repeat: -1,
         defaults: { ease: "none", duration: duration },
@@ -80,6 +83,19 @@ const TextPath: React.FC<TextPathProps> = ({
         { attr: { startOffset: "0%" } },
         0,
       );
+
+      // Animar un atributo SVG re-maqueta el SVG en cada cuadro; fuera de
+      // pantalla ese costo no compra nada.
+      const observador = new IntersectionObserver(
+        ([entrada]) => {
+          if (entrada.isIntersecting) tl.resume();
+          else tl.pause();
+        },
+        { rootMargin: "128px" },
+      );
+      observador.observe(cinta);
+
+      return () => observador.disconnect();
     },
     { scope: containerRef, dependencies: [reversed, duration] },
   );

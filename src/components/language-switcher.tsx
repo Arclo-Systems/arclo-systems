@@ -17,13 +17,13 @@ export function LanguageSwitcher() {
     <button
       onClick={toggleLocale}
       aria-label={locale === "es" ? "Switch to English" : "Cambiar a Español"}
-      className="flex h-9 items-center gap-1 rounded-full border border-neutral-200 px-3 text-sm font-medium text-neutral-500 transition-colors hover:border-neutral-300"
+      className="flex h-9 items-center gap-1 rounded-full border border-border px-3 text-sm font-medium text-muted-foreground transition-colors hover:border-input"
     >
-      <span className={locale === "es" ? "font-semibold text-neutral-900" : ""}>
+      <span className={locale === "es" ? "font-semibold text-foreground" : ""}>
         ES
       </span>
-      <span className="text-neutral-300">/</span>
-      <span className={locale === "en" ? "font-semibold text-neutral-900" : ""}>
+      <span className="text-border">/</span>
+      <span className={locale === "en" ? "font-semibold text-foreground" : ""}>
         EN
       </span>
     </button>
