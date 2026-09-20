@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "arclo - Custom software for your business",
     short_name: "arclo",
     description:
-      "Custom SaaS, web & mobile apps, AI agents, and automations.",
+      "Automation, integrations and AI agents. Custom software, web and mobile apps.",
     start_url: "/",
     display: "browser",
     background_color: "#0B111D",
