@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { Footer } from "@/components/footer";
 import { Reveal } from "@/components/reveal";
+import { languageAlternates, localizedUrl } from "@/lib/site";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -18,11 +19,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         ? "Política de Privacidad de Arclo Systems. Cómo recopilamos, usamos y protegemos tus datos personales."
         : "Privacy Policy for Arclo Systems. How we collect, use, and protect your personal data.",
     alternates: {
-      canonical: `https://arclosystems.com/${locale}/privacy`,
-      languages: {
-        es: "https://arclosystems.com/es/privacy",
-        en: "https://arclosystems.com/en/privacy",
-      },
+      canonical: localizedUrl(locale, "/privacy"),
+      languages: languageAlternates("/privacy"),
     },
   };
 }

@@ -1,39 +1,38 @@
 import type { MetadataRoute } from "next";
+import { routing } from "@/i18n/routing";
+import { languageAlternates, localizedUrl } from "@/lib/site";
 
-const BASE_URL = "https://arclosystems.com";
-
+/**
+ * `lastModified` va declarado, NO `new Date()`.
+ *
+ * Con la fecha del build las ocho URLs dicen "hoy" en cada despliegue aunque
+ * no se haya tocado una coma: la señal deja de distinguir lo que cambió de lo
+ * que no, y Google deja de mirarla. Al editar de verdad una página, mover su
+ * fecha acá.
+ */
 const routes = [
-  { path: "/", priority: 1.0, changeFrequency: "weekly" as const },
-  { path: "/terms", priority: 0.3, changeFrequency: "yearly" as const },
-  { path: "/privacy", priority: 0.3, changeFrequency: "yearly" as const },
+  { path: "/", lastModified: "2026-09-20", changeFrequency: "weekly" as const, priority: 1.0 },
+  { path: "/terms", lastModified: "2026-09-20", changeFrequency: "yearly" as const, priority: 0.3 },
+  { path: "/privacy", lastModified: "2026-09-20", changeFrequency: "yearly" as const, priority: 0.3 },
   {
     path: "/partners/registro",
-    priority: 0.6,
+    lastModified: "2026-05-15",
     changeFrequency: "monthly" as const,
+    priority: 0.6,
   },
 ];
 
-const locales = ["es", "en"] as const;
-const DEFAULT_LOCALE = "es";
-
-const localizedUrl = (locale: string, path: string) =>
-  `${BASE_URL}/${locale}${path === "/" ? "" : path}`;
+/** Medianoche en Costa Rica, que es donde se publica. */
+const enCostaRica = (fecha: string) => new Date(`${fecha}T00:00:00-06:00`);
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return routes.flatMap((route) =>
-    locales.map((locale) => ({
+    routing.locales.map((locale) => ({
       url: localizedUrl(locale, route.path),
-      lastModified: new Date(),
+      lastModified: enCostaRica(route.lastModified),
       changeFrequency: route.changeFrequency,
       priority: route.priority,
-      alternates: {
-        languages: {
-          ...Object.fromEntries(
-            locales.map((l) => [l, localizedUrl(l, route.path)]),
-          ),
-          "x-default": localizedUrl(DEFAULT_LOCALE, route.path),
-        },
-      },
+      alternates: { languages: languageAlternates(route.path) },
     })),
   );
 }

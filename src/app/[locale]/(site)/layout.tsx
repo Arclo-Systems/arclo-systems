@@ -5,8 +5,7 @@ import { PagePreloader } from "@/components/page-preloader";
 import { BackgroundEffect } from "@/components/background-effect";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { SmoothScroll } from "@/components/smooth-scroll";
-
-const BASE_URL = "https://arclosystems.com";
+import { languageAlternates, localizedUrl, SITE_URL } from "@/lib/site";
 
 type Props = {
   children: React.ReactNode;
@@ -21,19 +20,15 @@ export async function generateMetadata({
 
   const title = t("title");
   const description = t("description");
-  const url = `${BASE_URL}/${locale}`;
+  const url = localizedUrl(locale);
 
   return {
     title,
     description,
-    metadataBase: new URL(BASE_URL),
+    metadataBase: new URL(SITE_URL),
     alternates: {
       canonical: url,
-      languages: {
-        es: `${BASE_URL}/es`,
-        en: `${BASE_URL}/en`,
-        "x-default": `${BASE_URL}/es`,
-      },
+      languages: languageAlternates(),
     },
     openGraph: {
       title,
@@ -43,14 +38,14 @@ export async function generateMetadata({
       locale: locale === "es" ? "es_CR" : "en_US",
       type: "website",
       images: [
-        { url: `${BASE_URL}/open-graph.png`, width: 1200, height: 630, alt: title },
+        { url: `${SITE_URL}/open-graph.png`, width: 1200, height: 630, alt: title },
       ],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [`${BASE_URL}/open-graph.png`],
+      images: [`${SITE_URL}/open-graph.png`],
     },
   };
 }

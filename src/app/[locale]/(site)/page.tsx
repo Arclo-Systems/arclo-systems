@@ -8,8 +8,7 @@ import { Faq } from "@/components/faq";
 import { Contact } from "@/components/contact";
 import { Footer } from "@/components/footer";
 import { TextSeparator } from "@/components/text-separator";
-
-const BASE_URL = "https://arclosystems.com";
+import { SITE_URL } from "@/lib/site";
 
 function JsonLd({ data }: { data: Record<string, unknown> }) {
   return (
@@ -33,8 +32,8 @@ export default async function Home() {
     "@type": "ProfessionalService",
     name: "arclo",
     legalName: "Arclo Systems",
-    url: BASE_URL,
-    logo: `${BASE_URL}/open-graph.png`,
+    url: SITE_URL,
+    logo: `${SITE_URL}/open-graph.png`,
     description: tMeta("description"),
     address: {
       "@type": "PostalAddress",
@@ -61,7 +60,7 @@ export default async function Home() {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: "arclo",
-    url: BASE_URL,
+    url: SITE_URL,
     inLanguage: [locale === "es" ? "es-CR" : "en-US"],
   };
 

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { Footer } from "@/components/footer";
 import { Reveal } from "@/components/reveal";
+import { languageAlternates, localizedUrl } from "@/lib/site";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -18,11 +19,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         ? "Términos de Servicio de Arclo Systems. Condiciones para la contratación de servicios de desarrollo de software."
         : "Terms of Service for Arclo Systems. Conditions for engaging custom software development services.",
     alternates: {
-      canonical: `https://arclosystems.com/${locale}/terms`,
-      languages: {
-        es: "https://arclosystems.com/es/terms",
-        en: "https://arclosystems.com/en/terms",
-      },
+      canonical: localizedUrl(locale, "/terms"),
+      languages: languageAlternates("/terms"),
     },
   };
 }
