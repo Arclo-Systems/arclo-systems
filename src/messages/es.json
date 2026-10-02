@@ -102,6 +102,11 @@
       "description": "En desarrollo. Damos detalles cuando salga."
     }
   },
+  "Press": {
+    "title": "En los medios",
+    "subtitle": "Medios que escribieron sobre Kodi.",
+    "opensInNewTab": "abre en otra pestaña"
+  },
   "Team": {
     "title": "Nuestro equipo",
     "subtitle": "Con todos ellos vas a hablar durante el proyecto",

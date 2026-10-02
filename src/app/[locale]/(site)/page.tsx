@@ -3,6 +3,7 @@ import { Hero } from "@/components/hero";
 import { VideoSequence } from "@/components/video-sequence";
 import { Services } from "@/components/services";
 import { Projects } from "@/components/projects";
+import { Press } from "@/components/press";
 import { Team } from "@/components/team";
 import { Faq } from "@/components/faq";
 import { Contact } from "@/components/contact";
@@ -87,6 +88,7 @@ export default async function Home() {
       <TextSeparator text={t("text")} />
       <Services />
       <Projects />
+      <Press />
       <Team />
       <Faq />
       <Contact />

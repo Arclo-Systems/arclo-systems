@@ -3,6 +3,13 @@
 Todos los cambios relevantes del proyecto se documentan aquí.
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y versionado con [Semantic Versioning](https://semver.org/lang/es/).
 
+## 2026-10-02
+
+### Agregado
+
+- Sección "En los medios" en el home, entre Proyectos y Equipo, con las notas de El Financiero y NTG
+  Costa Rica sobre Kodi. Cada fila abre la nota original en otra pestaña.
+
 ## [1.0.0] - 2026-02-20
 
 ### Agregado
